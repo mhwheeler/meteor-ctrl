@@ -20,30 +20,6 @@ class @CtrlContext
       "#{ self.type }##{ self.uid }"
 
 
-  ###
-  Invoked when the component for the control is first created.
-  ###
-  __init: (component) ->
-    # Cross reference component/instance.
-    component.__instance__ = @
-    @__component__ = component
-
-    # Retrieve a reference to the parent control.
-    findParent = (component) ->
-        return unless component
-        return instance if instance = component.__instance__
-        findParent(component.parent) # <== RECURSION.
-    @parent = parent = findParent(@__component__.parent)
-
-    # Register child.
-    if parent
-      parent.children.push(@)
-      if id = @options.id
-        parent.children[id] = @
-
-
-    # Invoke the [init] method.
-    @__def__.init?.apply(@)
 
 
   ###
