@@ -1,12 +1,12 @@
 # Core-Control Test Harness.
-A "UI Control" wrapper around Meteor's `blaze` rendering engine.
+A "UI Control" wrapper around Meteor's `blaze` rendering engine
 
 See the [core-control-test](https://github.com/philcockfield/core-control-test) harness for this package.
 
 
 # The MIT License (MIT)
 
-© Copyright 2013, **Phil** Cockfield and **Tim** Haines
+© Copyright 2013, **Phil Cockfield** and **Tim Haines**
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
