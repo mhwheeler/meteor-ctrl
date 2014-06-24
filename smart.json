@@ -1,0 +1,8 @@
+{
+  "name": "control",
+  "description": "Logical UI control abstraction around blaze",
+  "homepage": "https://github.com/possibilities/meteor-cool-pkg",
+  "author": "Phil Cockfield (https://twitter.com/philcockfield)",
+  "version": "0.0.1",
+  "git": ""
+}

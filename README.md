@@ -1,7 +1,7 @@
-# Core-Control.
-A "UI Control" wrapper around Meteor's `blaze` rendering engine
+# Meteor-Control.
+Logical UI control abstraction around blaze.
 
-See the [core-control-test](https://github.com/philcockfield/core-control-test) harness for this package.
+See the [meteor-control-test](https://github.com/philcockfield/meteor-control-test) harness for this package.
 
 
 # The MIT License (MIT)

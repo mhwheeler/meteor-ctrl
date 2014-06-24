@@ -1,5 +1,5 @@
 Package.describe({
-  summary: 'core-control: UI Control wrapper around blaze'
+  summary: 'Logical UI control abstraction around blaze'
 });
 
 
@@ -12,7 +12,8 @@ Package.on_use(function (api) {
 
   // Generated with: github.com/philcockfield/meteor-package-loader
   api.add_files('client/control/control.html', 'client');
-  api.add_files('client/export.coffee', 'client');
+  api.add_files('client/api.coffee', 'client');
   api.add_files('client/control/control.coffee', 'client');
 
 });
+
