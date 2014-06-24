@@ -3,13 +3,15 @@ Represents an "context" instance of a control used internally
 by the control's code-behind.
 ###
 class @CtrlContext
-  constructor: (@__def__, @options) ->
+  constructor: (def, options) ->
     # Setup initial conditions.
-    self = @
-    def = @__def__
-    @uid = _.uniqueId('u')
-    @type = def.type
-    @helpers = { __instance__:@ } # NB: Temporarily store the instance for retrieval within [created/init] callback.
+    self      = @
+    @__def__  = def
+    @options  = options
+    @uid      = _.uniqueId('u')
+    @type     = def.type
+    @helpers  = { __instance__:@ } # NB: Temporarily store the instance for retrieval within [created/init] callback.
+    @children = []
 
     # Wrap helper methods.
     wrap = (func) -> -> func.call(self)
@@ -22,16 +24,26 @@ class @CtrlContext
   Invoked when the component for the control is first created.
   ###
   __init: (component) ->
+    # Cross reference component/instance.
     component.__instance__ = @
     @__component__ = component
-    @__def__.init?.apply(@)
 
     # Retrieve a reference to the parent control.
     findParent = (component) ->
         return unless component
         return instance if instance = component.__instance__
         findParent(component.parent) # <== RECURSION.
-    @parent = findParent(@__component__.parent)
+    @parent = parent = findParent(@__component__.parent)
+
+    # Register child.
+    if parent
+      parent.children.push(@)
+      if id = @options.id
+        parent.children[id] = @
+
+
+    # Invoke the [init] method.
+    @__def__.init?.apply(@)
 
 
   ###
