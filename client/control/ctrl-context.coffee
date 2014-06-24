@@ -26,11 +26,6 @@ class @CtrlContext
     @__component__ = component
     @__def__.init?.apply(@)
 
-
-  ###
-  Invokd when the control is in the DOM and ready to use.
-  ###
-  __created: ->
     # Retrieve a reference to the parent control.
     findParent = (component) ->
         return unless component
@@ -38,8 +33,12 @@ class @CtrlContext
         findParent(component.parent) # <== RECURSION.
     @parent = findParent(@__component__.parent)
 
-    # Invoke the [created] method.
-    @__def__.created?.apply(@)
+
+  ###
+  Invokd when the control is in the DOM and ready to use.
+  ###
+  __created: -> @__def__.created?.apply(@)
+
 
 
   ###

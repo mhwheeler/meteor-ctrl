@@ -1,9 +1,9 @@
-
-
 Template.ctrl.helpers
   name: ->
     throw new Error("A 'tmpl' name has not been declared on the {{> ctrl}}.") unless @tmpl
     @tmpl
+
+
 
   context: ->
     options = @
