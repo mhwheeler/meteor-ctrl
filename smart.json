@@ -2,7 +2,7 @@
   "name": "control",
   "description": "Logical UI control abstraction around blaze",
   "homepage": "https://github.com/possibilities/meteor-cool-pkg",
-  "author": "Phil Cockfield (https://twitter.com/philcockfield)",
+  "author": "Phil Cockfield (https://github.com/philcockfield)",
   "version": "0.0.1",
-  "git": ""
+  "git": "https://github.com/philcockfield/meteor-control.git"
 }
