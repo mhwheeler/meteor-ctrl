@@ -14,10 +14,11 @@ class @CtrlClass
     def.helpers ?= {}
     def.events  ?= {}
 
-    invoke = (instance, funcName, args) =>
-            return if instance.isDisposed
-            args = [args] unless _.isArray(args)
-            @def[funcName]?.apply?(instance, args)
+    invoke = (context, funcName, args) =>
+            instance = context.__instance__
+            unless instance.isDisposed
+              args = [args] unless _.isArray(args)
+              @def[funcName]?.apply?(instance, args)
 
 
     # Init.
@@ -47,12 +48,12 @@ class @CtrlClass
             parent.children[id] = @
 
         # Invoke the "init" method.
-        invoke(instance, 'init')
+        invoke(@, 'init')
 
 
 
     # Created (DOM Ready).
-    tmpl.rendered = -> @__instance__.__created()
+    tmpl.rendered = -> invoke(@, 'created')
 
     # Destroyed
     tmpl.destroyed = ->

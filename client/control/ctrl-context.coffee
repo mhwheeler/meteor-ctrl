@@ -22,14 +22,3 @@ class @CtrlContext
 
 
 
-  ###
-  Invokd when the control is in the DOM and ready to use.
-  ###
-  __created: -> @__def__.created?.apply(@)
-
-
-
-  ###
-  Invoked when the component has been destroyed.
-  ###
-  __destroyed: ->
