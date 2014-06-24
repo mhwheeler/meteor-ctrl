@@ -3,6 +3,6 @@
   "description": "Logical UI control abstraction around blaze",
   "homepage": "https://github.com/philcockfield/meteor-control",
   "author": "Phil Cockfield (https://github.com/philcockfield)",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "git": "https://github.com/philcockfield/meteor-control.git"
 }
