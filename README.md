@@ -1,7 +1,7 @@
 # Core-Control Test Harness.
 A "UI Control" wrapper around Meteor's `blaze` rendering engine.
 
-See the [test harness]((https://github.com/philcockfield/core-control-test)) for this package.
+See the [core-control-test](https://github.com/philcockfield/core-control-test) harness for this package.
 
 
 # The MIT License (MIT)
