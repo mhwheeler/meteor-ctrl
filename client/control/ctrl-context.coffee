@@ -8,6 +8,7 @@ class @CtrlContext
     self      = @
     @__def__  = def
     @options  = options
+    @id       = options.id if options.id
     @uid      = _.uniqueId('u')
     @type     = def.type
     @helpers  = { __instance__:@ } # NB: Temporarily store the instance for retrieval within [created/init] callback.
@@ -20,5 +21,24 @@ class @CtrlContext
       "#{ self.type }##{ self.uid }"
 
 
+  ###
+  Disposes of the control instance, releasing resources and Deps handles.
+  ###
+  dispose: ->
+    # Setup initial conditions.
+    return if @isDisposed
 
+    # Dispose of children first.
+    child.dispose() for child in @children
+
+    # Remove from parent.
+
+
+
+    console.log 'dispose', @uid, @type
+
+
+
+    # Finish up.
+    @isDisposed = true
 

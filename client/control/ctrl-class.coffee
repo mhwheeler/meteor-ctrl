@@ -5,6 +5,7 @@ class @CtrlClass
   constructor: (@type, @def = {}) ->
     # Setup initial conditions.
     self = @
+    def = @def
     @def.type ?= @type
     @tmpl = tmpl = Template[@type]
     throw new Error("Template '#{ @type }' does not exist.") unless @tmpl
@@ -21,9 +22,9 @@ class @CtrlClass
               @def[funcName]?.apply?(instance, args)
 
 
-    # Init.
+    # Init (invoked at construction, prior to the DOM being available).
     tmpl.created = ->
-        # Retrieve the instance from the data (helpers) object,
+        # Retrieve the ctrl instance from the data (helpers) object,
         # then clean up the data object.
         instance = @__instance__ = @data.__instance__
         delete @data.__instance__
@@ -51,13 +52,13 @@ class @CtrlClass
         invoke(@, 'init')
 
 
-
     # Created (DOM Ready).
     tmpl.rendered = -> invoke(@, 'created')
 
-    # Destroyed
-    tmpl.destroyed = ->
-        console.log 'destroyed', @
+
+    # Destroyed.
+    tmpl.destroyed = -> @__instance__.dispose()
+
 
 
     # Prepare events.
