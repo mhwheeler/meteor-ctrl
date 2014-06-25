@@ -60,8 +60,10 @@ class @CtrlClass
     tmpl.destroyed = -> @__instance__.dispose()
 
 
-
     # Prepare events.
     wrapEvent = (func) -> (e, context) -> func.call(context.__instance__, e)
     def.events[key] = wrapEvent(func) for key, func of def.events
     tmpl.events(def.events)
+
+
+

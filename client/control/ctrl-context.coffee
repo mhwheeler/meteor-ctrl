@@ -29,15 +29,17 @@ class @CtrlContext
     return if @isDisposed
 
     # Dispose of children first.
-    child.dispose() for child in @children
+    for child in _.clone(@children)
+      child.dispose()
 
     # Remove from parent.
+    if children = @parent?.children
+      index = _.indexOf(children, @)
+      children.splice(index, 1) if index > -1
+      delete children[@id]
 
-
-
-    console.log 'dispose', @uid, @type
-
-
+    # Invoke [destroyed] method on the instance.
+    @__def__.destroyed?.call?(@)
 
     # Finish up.
     @isDisposed = true
