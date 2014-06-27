@@ -1,7 +1,7 @@
 ###
 The definition of a control.
 ###
-class @CtrlClass
+class Ctrl.Definition
   constructor: (@type, @def = {}) ->
     # Setup initial conditions.
     self = @

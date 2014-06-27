@@ -13,9 +13,18 @@ Package.on_use(function (api) {
   // Generated with: github.com/philcockfield/meteor-package-loader
   api.add_files('client/control/tmpl.html', 'client');
   api.add_files('client/api.coffee', 'client');
-  api.add_files('client/control/ctrl-class.coffee', 'client');
-  api.add_files('client/control/ctrl-context.coffee', 'client');
+  api.add_files('client/control/definition.coffee', 'client');
+  api.add_files('client/control/instance.coffee', 'client');
   api.add_files('client/control/tmpl.coffee', 'client');
+
+});
+
+
+
+Package.on_test(function (api) {
+  api.use(['tinytest', 'control']);
+
+  api.add_files('test/client.js', 'client');
 
 });
 

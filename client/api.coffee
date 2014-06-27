@@ -2,7 +2,7 @@
 ### @export Ctrl ###
 
 Ctrl = {} unless Ctrl?
-@ctrlDefs = {}
+Ctrl.defs = {}
 
 
 
@@ -19,7 +19,7 @@ Registers one or more control definitions.
 Ctrl.define = (defs = {}) ->
   for type, def of defs
     def.type ?= type
-    if ctrlDefs[type]?
+    if Ctrl.defs[type]?
       throw new Error("The control named '#{ type }' has already been defined.")
-    ctrlDefs[type] = new CtrlClass(type, def)
+    Ctrl.defs[type] = new Ctrl.Definition(type, def)
 

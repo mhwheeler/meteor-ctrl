@@ -2,7 +2,7 @@
 Represents an "context" instance of a control used internally
 by the control's code-behind.
 ###
-class @CtrlContext
+class Ctrl.Instance
   constructor: (def, options) ->
     # Setup initial conditions.
     self           = @
