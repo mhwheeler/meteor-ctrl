@@ -3,7 +3,7 @@
 
 Ctrl = {} unless Ctrl?
 Ctrl.defs = {}
-
+Ctrl.instances = {} # Referenced by the instance UID.
 
 
 # --------------------------------------------------------------------------

@@ -1,6 +1,5 @@
 Template.ctrl.helpers
   name: ->
-    console.log '@', @
     throw new Error("A 'tmpl' name has not been declared on the {{> ctrl}}.") unless @tmpl
     @tmpl
 

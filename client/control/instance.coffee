@@ -3,7 +3,7 @@ Represents an "context" instance of a control used internally
 by the control's code-behind.
 ###
 class Ctrl.Instance
-  constructor: (def, options) ->
+  constructor: (def, options = {}) ->
     # Setup initial conditions.
     self           = @
     @__def__       = def
@@ -14,6 +14,12 @@ class Ctrl.Instance
     @helpers       = { __instance__:@ } # NB: Temporarily store the instance for retrieval within [created/init] callback.
     @children      = []
     @__internal__  = {}
+
+    # Store temporary global reference if an "insert" ID was specified.
+    # This is retrieved (and cleaned up) via the "insert" method.
+    if insertId = options.__insert
+      Ctrl.__inserted = @
+      delete options.__insert
 
     # Wrap helper methods.
     wrap = (func) -> -> func.call(self)
@@ -46,6 +52,9 @@ class Ctrl.Instance
 
     # Invoke [destroyed] method on the instance.
     @__def__.destroyed?.call?(@)
+
+    # Remove global reference.
+    delete Ctrl.instances[@uid]
 
     # Finish up.
     @isDisposed = true

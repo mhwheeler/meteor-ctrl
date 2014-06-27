@@ -2,6 +2,11 @@
 The definition of a control.
 ###
 class Ctrl.Definition
+  ###
+  Constructor.
+  @param type: The type/template name.
+  @param def:  An object containing the callbacks used within the control instance.
+  ###
   constructor: (@type, @def = {}) ->
     # Setup initial conditions.
     self = @
@@ -22,7 +27,7 @@ class Ctrl.Definition
               @def[funcName]?.apply?(instance, args)
 
 
-    # Init (invoked at construction, prior to the DOM being available).
+    # INIT (invoked at construction, prior to the DOM being available).
     tmpl.created = ->
         # Retrieve the ctrl instance from the data (helpers) object,
         # then clean up the data object.
@@ -30,8 +35,12 @@ class Ctrl.Definition
         delete @data.__instance__
 
         # Cross reference component/instance.
-        @__component__.__instance__ = instance
-        instance.__component__ = @__component__
+        component = @__component__
+        component.__instance__ = instance
+        instance.__component__ = component
+
+        # Store global reference to the instance.
+        Ctrl.instances[instance.uid] = instance
 
         # Retrieve a reference to the parent control.
         findParent = (component) ->
@@ -51,19 +60,46 @@ class Ctrl.Definition
         # Invoke the "init" method.
         invoke(@, 'init')
 
-
-    # Created (DOM Ready).
+    # CREATED (DOM Ready).
     tmpl.rendered = -> invoke(@, 'created')
 
-
-    # Destroyed.
+    # DESTROYED.
     tmpl.destroyed = -> @__instance__.dispose()
-
 
     # Prepare events.
     wrapEvent = (func) -> (e, context) -> func.call(context.__instance__, e)
     def.events[key] = wrapEvent(func) for key, func of def.events
     tmpl.events(def.events)
+
+
+
+  ###
+  Inserts a new instance of the control into the DOM.
+  @param el:    The element to insert into. Can be:
+                - DOM element
+                - jQuery element
+                - String (CSS selector)
+  @param args:  The named data arguments to supply to the control.
+  ###
+  insert: (el, args = {}) ->
+    # Setup initial conditions.
+    args.tmpl = @type
+    args.__insert = _.uniqueId() # Temporarily store an ID to retrieve the instance with.
+
+    # Process the element to insert into.
+    el = $(el) if _.isString(el)
+    el = el[0] if el.jquery
+
+    # Render the control.
+    component = UI.renderWithData(Template.ctrl, args)
+    UI.insert(component, el)
+
+    # Return the new instance.
+    instance = Ctrl.__inserted
+    delete Ctrl.__inserted
+    instance
+
+
 
 
 
