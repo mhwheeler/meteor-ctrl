@@ -22,9 +22,13 @@ Package.on_use(function (api) {
 
 
 Package.on_test(function (api) {
-  api.use(['tinytest', 'control']);
+  api.use(['tinytest', 'coffeescript']);
+  api.use(['templating', 'ui', 'spacebars', 'stylus'], 'client');
+  api.use('control');
 
-  api.add_files('test/client.js', 'client');
+  api.add_files('test/client/foo.html', 'client');
+  api.add_files('test/client/foo.styl', 'client');
+  api.add_files('test/client/foo.coffee', 'client');
 
 });
 
