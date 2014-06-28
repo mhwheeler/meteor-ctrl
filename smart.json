@@ -6,6 +6,7 @@
   "version": "0.0.2",
   "git": "https://github.com/philcockfield/meteor-control.git",
   "packages": {
-    "munit": {}
+    "munit": {},
+    "underscore-string-latest": {}
   }
 }

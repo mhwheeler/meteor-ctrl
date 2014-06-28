@@ -22,9 +22,11 @@ Package.on_use(function (api) {
 
 
 Package.on_test(function (api) {
-  api.use(['tinytest', 'munit', 'coffeescript']);
+  api.use(['munit', 'coffeescript', 'underscore-string-latest']);
   api.use(['templating', 'ui', 'spacebars', 'stylus'], 'client');
   api.use('control');
+
+  api.add_files('test/helpers.coffee');
 
   api.add_files('test/client/foo.html', 'client');
   api.add_files('test/client/foo.styl', 'client');

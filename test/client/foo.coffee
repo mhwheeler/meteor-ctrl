@@ -22,22 +22,13 @@ Ctrl.define
 
 myAsyncFunction = (callback) -> callback('Test complete!')
 
+console.log 'Ctrl', Ctrl
 
 TestSuiteExample =
-
   name: "TestSuiteExample"
 
-  suiteSetup: ->
-    console.log 'suiteSetup'
-
-  setup: -> console.log 'setup'
-
-  testAsync: (test, done) ->
-    myAsyncFunction done((value) ->
-      test.isNotNull value
-    )
-
-
+  suiteSetup: -> # console.log 'suiteSetup'
+  setup: -> # console.log 'setup'
 
 
   tests: [
@@ -49,8 +40,8 @@ TestSuiteExample =
       name: "sync test ctrl"
       func: (test)->
         instance = Ctrl.defs.foo.insert('body')
-        console.log '+++++ instance', instance
-        console.log ''
+        # console.log '+++++ instance', instance
+        # console.log ''
         test.isTrue(true)
 
     },
@@ -72,8 +63,19 @@ TestSuiteExample =
     }
   ]
 
-  tearDown: -> console.log 'tearDown'
-
-  suiteTearDown: -> console.log 'suiteTearDown'
+  tearDown: -> # console.log 'tearDown'
+  suiteTearDown: -> # console.log 'suiteTearDown'
 
 Munit.run(TestSuiteExample)
+
+
+
+Munit.suite
+  'fooBar':
+
+    tests:
+      barBaz: (test) -> # console.log 'yo!'
+
+    tearDown: ->
+      for key, value of Ctrl.instances
+        console.log 'value', value
