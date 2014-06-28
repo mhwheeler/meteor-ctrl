@@ -22,7 +22,7 @@ Package.on_use(function (api) {
 
 
 Package.on_test(function (api) {
-  api.use(['tinytest', 'coffeescript']);
+  api.use(['tinytest', 'munit', 'coffeescript']);
   api.use(['templating', 'ui', 'spacebars', 'stylus'], 'client');
   api.use('control');
 
