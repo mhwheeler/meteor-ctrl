@@ -17,65 +17,73 @@ Ctrl.define
 
 #  --------------------------------------------------------------------------
 
-@expect = chai.expect
 
 
-myAsyncFunction = (callback) -> callback('Test complete!')
-
-console.log 'Ctrl', Ctrl
-
-TestSuiteExample =
-  name: "TestSuiteExample"
-
-  suiteSetup: -> # console.log 'suiteSetup'
-  setup: -> # console.log 'setup'
+# myAsyncFunction = (callback) -> callback('Test complete!')
 
 
-  tests: [
-    {
-      name: "sync test"
-      func: (test) ->
-    },
-    {
-      name: "sync test ctrl"
-      func: (test)->
-        instance = Ctrl.defs.foo.insert('body')
-        # console.log '+++++ instance', instance
-        # console.log ''
-        test.isTrue(true)
+# TestSuiteExample =
+#   name: "TestSuiteExample"
 
-    },
-    {
-      name: "async test"
-      # skip: true
-      func: (test, done)->
-        myAsyncFunction done((value)->
-          test.isNotNull(value)
-        )
+#   suiteSetup: -> # console.log 'suiteSetup'
+#   setup: -> # console.log 'setup'
 
-    },
-    {
-      name: "test with timeout"
-      type: "client"
-      timeout: 5000
-      func: (test)->
-        test.isTrue Meteor.isClient
-    }
-  ]
 
-  tearDown: -> # console.log 'tearDown'
-  suiteTearDown: -> # console.log 'suiteTearDown'
+#   tests: [
+#     {
+#       name: "sync test"
+#       func: (test) ->
+#     },
+#     {
+#       name: "sync test ctrl"
+#       func: (test)->
+#         instance = Ctrl.defs.foo.insert('body')
+#         # console.log '+++++ instance', instance
+#         # console.log ''
+#         test.isTrue(true)
 
-Munit.run(TestSuiteExample)
+#     },
+#     {
+#       name: "async test"
+#       # skip: true
+#       func: (test, done)->
+#         myAsyncFunction done((value)->
+#           test.isNotNull(value)
+#         )
+
+#     },
+#     {
+#       name: "test with timeout"
+#       type: "client"
+#       timeout: 5000
+#       func: (test)->
+#         test.isTrue Meteor.isClient
+#     }
+#   ]
+
+#   tearDown: -> # console.log 'tearDown'
+#   suiteTearDown: -> # console.log 'suiteTearDown'
+
+# Munit.run(TestSuiteExample)
 
 
 
-Munit.suite
+Test.suite
   'fooBar':
-
-    tests:
-      barBaz: (test) -> # console.log 'yo!'
 
     tearDown: ->
       for key, value of Ctrl.instances
-        console.log 'value', value
+        console.log 'REMVOE', value
+
+    tests:
+      insertCtrl: (test) ->
+
+        instance = Ctrl.defs.foo.insert('body')
+
+        console.log 'instance', instance
+
+
+        c = instance.__component__
+        console.log 'c', c
+        console.log 'c.destroy', c.destroy
+

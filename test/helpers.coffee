@@ -1,4 +1,4 @@
-Munit.suite = (defs = {}) ->
+Test.suite = (defs = {}) ->
   for name, suite of defs
     # Ensure the suite of tests is named.
     suite.name ?= _.humanize(name)

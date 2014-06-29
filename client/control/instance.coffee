@@ -6,14 +6,13 @@ class Ctrl.Instance
   constructor: (def, options = {}) ->
     # Setup initial conditions.
     self           = @
-    @__def__       = def
     @options       = options
     @id            = options.id if options.id
     @uid           = _.uniqueId('u')
     @type          = def.type
     @helpers       = { __instance__:@ } # NB: Temporarily store the instance for retrieval within [created/init] callback.
     @children      = []
-    @__internal__  = {}
+    @__internal__ = { def:def }
 
     # Store temporary global reference if an "insert" ID was specified.
     # This is retrieved (and cleaned up) via the "insert" method.
@@ -25,7 +24,7 @@ class Ctrl.Instance
     wrap = (func) -> -> func.call(self)
     @helpers[key] = wrap(func) for key, func of def.helpers
     @helpers.instance ?= ->
-      "#{ self.type }##{ self.uid }"
+      "#{ self.type }##{ self.uid }" # Standard output for {{instance}} within a template.
 
 
   ###
@@ -51,7 +50,7 @@ class Ctrl.Instance
       delete @__internal__.depsHandles
 
     # Invoke [destroyed] method on the instance.
-    @__def__.destroyed?.call?(@)
+    @__internal__.def.destroyed?.call?(@)
 
     # Remove global reference.
     delete Ctrl.instances[@uid]

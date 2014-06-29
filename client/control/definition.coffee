@@ -37,7 +37,7 @@ class Ctrl.Definition
         # Cross reference component/instance.
         component = @__component__
         component.__instance__ = instance
-        instance.__component__ = component
+        instance.__internal__.component = component
 
         # Store global reference to the instance.
         Ctrl.instances[instance.uid] = instance

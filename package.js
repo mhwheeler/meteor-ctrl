@@ -26,6 +26,7 @@ Package.on_test(function (api) {
   api.use(['templating', 'ui', 'spacebars', 'stylus'], 'client');
   api.use('control');
 
+  api.add_files('test/ns.js');
   api.add_files('test/helpers.coffee');
 
   api.add_files('test/client/foo.html', 'client');
