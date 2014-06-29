@@ -10,7 +10,10 @@ See the [meteor-control-test](https://github.com/philcockfield/meteor-control-te
 - ctrl (api)
 - hash / session
 
-
+Packages
+- delay
+- handlers
+- reactive-hash
 
 
 

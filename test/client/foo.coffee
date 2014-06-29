@@ -24,15 +24,21 @@ Test.suite
       #   console.log 'REMVOE', value
 
     tests:
+      async: (test, done) ->
+
+        # timeout (callback) ->
+
+
       insertCtrl: (test, done) ->
 
         instance = Ctrl.defs.foo.insert('body')
 
-        # console.log 'instance', instance
-        # console.log 'instance.find()', instance.find()[0]
-        # console.log ''
+        console.trace()
 
-        myAsyncFunction done((value)->
+        console.log 'done', done
+
+
+        myAsyncFunction done (value)->
 
           console.log 'after timeout'
           console.log 'instance', instance
@@ -40,7 +46,6 @@ Test.suite
           console.log ''
 
           # expect(true).to.equal false
-        )
 
 
         # myAsyncFunction done((value)->
