@@ -32,6 +32,7 @@ Package.on_test(function (api) {
   api.add_files('test/client/foo.html', 'client');
   api.add_files('test/client/foo.styl', 'client');
   api.add_files('test/client/foo.coffee', 'client');
+  api.add_files('test/client/example.coffee', 'client');
 
 });
 

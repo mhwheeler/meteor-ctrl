@@ -73,6 +73,15 @@ class Ctrl.Instance
 
 
 
-
-
+  ###
+  Retrieves the a jQuery element for the control.
+  @param selector:  Optional. A CSS selector to search within the element's DOM for.
+                    If ommited the root element is returned.
+  ###
+  find: (selector) ->
+    templateInstance = @__internal__.component.templateInstance
+    if not selector? or selector is ''
+      $(templateInstance.firstNode)
+    else
+      templateInstance.find(selector)
 
