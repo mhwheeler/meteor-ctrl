@@ -26,12 +26,12 @@ Package.on_test(function (api) {
   api.use(['templating', 'ui', 'spacebars', 'stylus'], 'client');
   api.use('control');
 
-  api.add_files('test/ns.js');
-  api.add_files('test/helpers.coffee');
+  api.add_files('test/shared/ns.js');
+  api.add_files('test/shared/helpers.coffee');
 
-  api.add_files('test/client/foo.html', 'client');
-  api.add_files('test/client/foo.styl', 'client');
-  api.add_files('test/client/foo.coffee', 'client');
+  api.add_files('test/client/ctrl/foo.html', 'client');
+  api.add_files('test/client/ctrl/foo.styl', 'client');
+  api.add_files('test/client/ctrl/foo.coffee', 'client');
   api.add_files('test/client/example.coffee', 'client');
 
 });
