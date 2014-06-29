@@ -26,13 +26,13 @@ Package.on_test(function (api) {
   api.use(['templating', 'ui', 'spacebars', 'stylus'], 'client');
   api.use('control');
 
-  api.add_files('test/shared/ns.js');
-  api.add_files('test/shared/helpers.coffee');
+  api.add_files('tests/shared/ns.js');
+  api.add_files('tests/shared/helpers.coffee');
 
-  api.add_files('test/client/ctrl/foo.html', 'client');
-  api.add_files('test/client/ctrl/foo.styl', 'client');
-  api.add_files('test/client/ctrl/foo.coffee', 'client');
-  api.add_files('test/client/example.coffee', 'client');
+  api.add_files('tests/client/ctrl/foo.html', 'client');
+  api.add_files('tests/client/ctrl/foo.styl', 'client');
+  api.add_files('tests/client/ctrl/foo.coffee', 'client');
+  api.add_files('tests/client/example.coffee', 'client');
 
 });
 
