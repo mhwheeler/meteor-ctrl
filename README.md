@@ -1,7 +1,7 @@
 # Meteor-Control.
 Logical UI control abstraction around blaze.
 
-See the [meteor-control-test](https://github.com/philcockfield/meteor-control-test) harness for this package.
+See the [meteor-ctrl-test](https://github.com/philcockfield/meteor-ctrl-test) harness for this package.
 
 
 
