@@ -1,5 +1,5 @@
 Package.describe({
-  summary: 'Logical UI control abstraction around blaze'
+  summary: 'Logical UI-control abstraction around blaze'
 });
 
 
@@ -24,14 +24,14 @@ Package.on_use(function (api) {
 Package.on_test(function (api) {
   api.use(['munit', 'coffeescript', 'underscore-string-latest']);
   api.use(['templating', 'ui', 'spacebars', 'stylus'], 'client');
-  api.use('control');
+  api.use('ctrl');
 
-  api.add_files('tests/shared/ns.js');
-  api.add_files('tests/shared/helpers.coffee');
-
+  // Generated with: github.com/philcockfield/meteor-package-loader
+  api.add_files('tests/shared/ns.js', ['client', 'server']);
+  api.add_files('tests/shared/helpers.coffee', ['client', 'server']);
   api.add_files('tests/client/ctrl/foo.html', 'client');
-  api.add_files('tests/client/ctrl/foo.styl', 'client');
   api.add_files('tests/client/ctrl/foo.coffee', 'client');
+  api.add_files('tests/client/ctrl/foo.styl', 'client');
   api.add_files('tests/client/example.coffee', 'client');
 
 });

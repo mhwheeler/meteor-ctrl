@@ -1,3 +1,6 @@
+#= base
+#= require ./ns.js
+
 Test.suite = (defs = {}) ->
   for name, suite of defs
     # Ensure the suite of tests is named.
