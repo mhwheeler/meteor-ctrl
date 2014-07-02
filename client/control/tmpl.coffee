@@ -1,10 +1,24 @@
+###
+The container template for a [Ctrl].
+
+  This dynamically renders the declared 'tmpl' passing it a
+  [CtrlInstance] as the context.
+
+###
 Template.ctrl.helpers
+
+  ###
+  The template name: {{> UI.dynamic template=name data=context }}
+  ###
   name: ->
     throw new Error("A 'tmpl' name has not been declared on the {{> ctrl}}.") unless @tmpl
     @tmpl
 
 
 
+  ###
+  The templates data context: {{> UI.dynamic template=name data=context }}
+  ###
   context: ->
     options = @
 

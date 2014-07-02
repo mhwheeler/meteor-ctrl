@@ -1,4 +1,9 @@
 {
+  "meteor": {
+    "git": "https://github.com/meteor/meteor.git",
+    "branch": "blaze-refactor"
+  },
+
   "name": "ctrl",
   "description": "Logical UI control abstraction around blaze",
   "homepage": "https://github.com/philcockfield/meteor-control",
@@ -6,9 +11,5 @@
   "version": "0.0.2",
   "git": "https://github.com/philcockfield/meteor-control.git",
   "packages": {
-    "munit": {
-      "path": "../../libs/meteor-munit"
-    },
-    "underscore-string-latest": {}
   }
 }

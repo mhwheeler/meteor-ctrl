@@ -79,9 +79,9 @@ class Ctrl.Instance
                     If ommited the root element is returned.
   ###
   find: (selector) ->
-    templateInstance = @__internal__.component.templateInstance
-    if not selector? or selector is ''
-      $(templateInstance.firstNode)
-    else
-      templateInstance.find(selector)
+    if el = @__internal__.blazeView?.domrange?.members[0]
+      if not selector? or selector is ''
+        $(el)
+      else
+        $(el).find(selector)
 

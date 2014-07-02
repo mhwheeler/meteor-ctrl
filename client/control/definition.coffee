@@ -34,22 +34,22 @@ class Ctrl.Definition
         instance = @__instance__ = @data.__instance__
         delete @data.__instance__
 
-        # Cross reference component/instance.
-        component = @__component__
-        component.__instance__ = instance
-        instance.__internal__.component = component
+        # Cross reference blaze-view/instance.
+        blazeView = @__view__
+        blazeView.__instance__ = instance
+        instance.__internal__.blazeView = blazeView
 
         # Store global reference to the instance.
         Ctrl.instances[instance.uid] = instance
 
         # Retrieve a reference to the parent control.
-        findParent = (component) ->
-                return unless component
-                if inst = component.__instance__
+        findParent = (blazeView) ->
+                return unless blazeView
+                if inst = blazeView.__instance__
                   return inst
                 else
-                  findParent(component.parent) # <== RECURSION.
-        instance.parent = parent = findParent(@__component__.parent)
+                  findParent(blazeView.parentView) # <== RECURSION.
+        instance.parent = parent = findParent(blazeView.parentView)
 
         # Register child within the parent's [children] array.
         if parent
@@ -57,11 +57,19 @@ class Ctrl.Definition
           if id = instance.options.id
             parent.children[id] = @
 
-        # Invoke the "init" method.
+        # Invoke the "init" method on the instance.
         invoke(@, 'init')
 
+
     # CREATED (DOM Ready).
-    tmpl.rendered = -> invoke(@, 'created')
+    tmpl.rendered = ->
+        # Ensure that the control has a single root element.
+        if @__view__.domrange.members.length > 1
+          throw new Error("The [#{ self.type }] ctrl has more than one top-level element in the template.")
+
+        # Invoke the "created" method on the instance.
+        invoke(@, 'created')
+
 
     # DESTROYED.
     tmpl.destroyed = -> @__instance__.dispose()

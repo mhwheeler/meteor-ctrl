@@ -23,3 +23,8 @@ Ctrl.define = (defs = {}) ->
       throw new Error("The control named '#{ type }' has already been defined.")
     Ctrl.defs[type] = new Ctrl.Definition(type, def)
 
+
+
+
+
+

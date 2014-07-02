@@ -22,17 +22,16 @@ Package.on_use(function (api) {
 
 
 Package.on_test(function (api) {
-  api.use(['munit', 'coffeescript', 'underscore-string-latest']);
+  api.use(['coffeescript', 'munit']);
   api.use(['templating', 'ui', 'spacebars', 'stylus'], 'client');
   api.use('ctrl');
 
   // Generated with: github.com/philcockfield/meteor-package-loader
-  api.add_files('tests/shared/ns.js', ['client', 'server']);
-  api.add_files('tests/shared/helpers.coffee', ['client', 'server']);
-  api.add_files('tests/client/ctrl/foo.html', 'client');
-  api.add_files('tests/client/ctrl/foo.coffee', 'client');
-  api.add_files('tests/client/ctrl/foo.styl', 'client');
+  api.add_files('tests/client/ctrl/sample.html', 'client');
+  api.add_files('tests/client/ctrl/sample.coffee', 'client');
+  api.add_files('tests/client/ctrl/sample.styl', 'client');
   api.add_files('tests/client/example.coffee', 'client');
 
 });
+
 
