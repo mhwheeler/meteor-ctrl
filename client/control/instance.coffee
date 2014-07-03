@@ -65,6 +65,7 @@ class Ctrl.Instance
 
     # Dispose of function handlers.
     @__internal__.onCreated?.dispose()
+    delete @__internal__.onCreated
 
     # Finish up.
     @isDisposed = true

@@ -15,7 +15,31 @@ describe 'DOM insertion', ->
 
 
 describe 'dispose', ->
-  it 'removes the ctrl from the DOM when disposed', (done) ->
+  it 'results in an "isDisposed" state', (done) ->
+
+    Test.insert 'deep', (ctrl) =>
+      children = ctrl.children.clone()
+      @try =>
+          ctrl.dispose()
+          expect(ctrl.isDisposed).to.be.true
+
+          expect(ctrl.children.length).to.equal 0
+          for child in children
+            expect(child.isDisposed).to.equal true
+
+      done()
+
+
+  it 'calls "destroyed" on instance', (done) ->
+    Test.insert 'foo', (ctrl) =>
+      @try =>
+          ctrl.dispose()
+          expect(ctrl.destroyedWasCalled).to.equal true
+      done()
+
+
+
+  it 'removes the ctrl from the DOM', (done) ->
     Test.insert 'foo', (ctrl) =>
       @try =>
           el = $("div.foo[data-ctrl-uid='#{ ctrl.uid }']")
@@ -26,7 +50,7 @@ describe 'dispose', ->
       done()
 
 
-  it 'remove the global ctrl-instance reference', (done) ->
+  it 'remove the global reference to the instance', (done) ->
     Test.insert 'foo', (ctrl) =>
       @try =>
           expect(Ctrl.instances[ctrl.uid]).to.equal ctrl
