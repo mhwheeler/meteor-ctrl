@@ -10,6 +10,6 @@ Test.insert = (ctrlDef, callback) ->
 Test.tearDown = ->
   # Remove all ctrl instances.
   for key, instance of Ctrl.instances
-    instance.remove()
+    instance.dispose()
 
 

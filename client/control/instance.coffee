@@ -38,7 +38,9 @@ class Ctrl.Instance
     # NB: This is only necessary when "dispose" is being called directly
     #     without either Blaze destroying the element, or the "remove" method
     #     having caused the ctrl to be destroyed.
-    @remove() unless @__internal__.blazeView.isDestroyed
+    blazeView = @__internal__.blazeView
+    unless blazeView.isDestroyed
+      UI.remove(blazeView.domrange)
 
     # Dispose of children first.
     for child in _.clone(@children)
@@ -109,13 +111,6 @@ class Ctrl.Instance
     handlers.push(func)
 
 
-
-  ###
-  Removes the ctrl from the DOM and destroyed it.
-  ###
-  remove: ->
-    return if @isDisposed
-    UI.remove(@__internal__.blazeView.domrange)
 
 
 

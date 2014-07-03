@@ -1,7 +1,7 @@
 @expect = chai.expect
 
 
-describe 'Insert into the DOM', ->
+describe 'DOM insertion', ->
   afterEach -> Test.tearDown()
 
   it 'inserts into the DOM with the "data-ctrl-uid" attribute', (done) ->
@@ -14,43 +14,25 @@ describe 'Insert into the DOM', ->
 
 
 
-describe 'remove from the DOM', ->
-  it 'removes the ctrl from the DOM', (done) ->
+describe 'dispose', ->
+  it 'removes the ctrl from the DOM when disposed', (done) ->
     Test.insert 'foo', (ctrl) =>
       @try =>
           el = $("div.foo[data-ctrl-uid='#{ ctrl.uid }']")
           expect(el.length).to.equal 1
-          ctrl.remove()
-          el = $("div.foo[data-ctrl-uid='#{ ctrl.uid }']")
-          expect(el.length).to.equal 0
-      done()
-
-
-  it 'disposes of the ctrl when removed', (done) ->
-    Test.insert 'foo', (ctrl) =>
-      @try =>
-          expect(ctrl.isDisposed).to.be.undefined
-          ctrl.remove()
-          expect(ctrl.isDisposed).to.be.true
-      done()
-
-
-  it 'does not fail when removing twice', (done) ->
-    Test.insert 'foo', (ctrl) =>
-      @try =>
-          ctrl.remove()
-          ctrl.remove()
-      done()
-
-
-  it 'removes from the DOM when "dispose" is called', (done) ->
-    Test.insert 'foo', (ctrl) =>
-      @try =>
           ctrl.dispose()
           el = $("div.foo[data-ctrl-uid='#{ ctrl.uid }']")
           expect(el.length).to.equal 0
       done()
 
+
+  it 'remove the global ctrl-instance reference', (done) ->
+    Test.insert 'foo', (ctrl) =>
+      @try =>
+          expect(Ctrl.instances[ctrl.uid]).to.equal ctrl
+          ctrl.dispose()
+          expect(Ctrl.instances[ctrl.uid]).to.be.undefined
+      done()
 
 
 
