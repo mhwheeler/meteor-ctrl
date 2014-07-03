@@ -76,10 +76,10 @@ class Ctrl.Definition
         invoke(@, 'created')
 
         # Invoke any "ready" handlers.
-        if handlers = instance._onCreated
+        if handlers = instance.__internal__.onCreated
           handlers.invoke(instance)
           handlers.dispose()
-          delete instance._onCreated
+          delete instance.__internal__.onCreated
 
 
     # DESTROYED.

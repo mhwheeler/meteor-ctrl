@@ -34,6 +34,12 @@ class Ctrl.Instance
     # Setup initial conditions.
     return if @isDisposed
 
+    # Remove from the DOM if required.
+    # NB: This is only necessary when "dispose" is being called directly
+    #     without either Blaze destroying the element, or the "remove" method
+    #     having caused the ctrl to be destroyed.
+    @remove() unless @__internal__.blazeView.isDestroyed
+
     # Dispose of children first.
     for child in _.clone(@children)
       child.dispose()
@@ -56,7 +62,7 @@ class Ctrl.Instance
     delete Ctrl.instances[@uid]
 
     # Dispose of function handlers.
-    @_onCreated?.dispose()
+    @__internal__.onCreated?.dispose()
 
     # Finish up.
     @isDisposed = true
@@ -99,8 +105,17 @@ class Ctrl.Instance
   @param func: The function to invoke.
   ###
   onCreated: (func) ->
-    @_onCreated ?= new Util.Handlers(@)
-    @_onCreated.push(func)
+    handlers = @__internal__.onCreated ?= new Util.Handlers(@)
+    handlers.push(func)
+
+
+
+  ###
+  Removes the ctrl from the DOM and destroyed it.
+  ###
+  remove: ->
+    return if @isDisposed
+    UI.remove(@__internal__.blazeView.domrange)
 
 
 

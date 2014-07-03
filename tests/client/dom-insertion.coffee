@@ -2,6 +2,9 @@
 
 
 describe 'Inserting a control into the DOM', ->
+  afterEach -> Test.tearDown()
+
+
   it 'inserts into the DOM with the "data-ctrl-uid" attribute', (done) ->
     Ctrl.defs.foo.insert('body').ready (instance) =>
         @try ->
@@ -13,6 +16,8 @@ describe 'Inserting a control into the DOM', ->
 
 
 describe '[find] and [el] methods', ->
+  afterEach -> Test.tearDown()
+
   it 'has both [find] and [el] methods', (done) ->
     Test.insert 'foo', (ctrl) =>
       @try =>
@@ -30,6 +35,8 @@ describe '[find] and [el] methods', ->
 
 
 describe 'parent / children', ->
+  afterEach -> Test.tearDown()
+
   it 'has children', (done) ->
     Test.insert 'deep', (ctrl) =>
       @try =>
@@ -49,20 +56,53 @@ describe 'parent / children', ->
       done()
 
 
-
   it 'has parent', (done) ->
     Test.insert 'deep', (ctrl) =>
       @try =>
-
           child = ctrl.children.myChild
           grandChild = child.children[0]
-
           expect(grandChild.parent).to.equal child
           expect(child.parent).to.equal ctrl
-
-
-
       done()
 
+
+
+
+describe 'remove', ->
+  it 'removes the ctrl from the DOM', (done) ->
+    Test.insert 'foo', (ctrl) =>
+      @try =>
+          el = $("div.foo[data-ctrl-uid='#{ ctrl.uid }']")
+          expect(el.length).to.equal 1
+          ctrl.remove()
+          el = $("div.foo[data-ctrl-uid='#{ ctrl.uid }']")
+          expect(el.length).to.equal 0
+      done()
+
+
+  it 'disposes of the ctrl when removed', (done) ->
+    Test.insert 'foo', (ctrl) =>
+      @try =>
+          expect(ctrl.isDisposed).to.be.undefined
+          ctrl.remove()
+          expect(ctrl.isDisposed).to.be.true
+      done()
+
+
+  it 'does not fail when removing twice', (done) ->
+    Test.insert 'foo', (ctrl) =>
+      @try =>
+          ctrl.remove()
+          ctrl.remove()
+      done()
+
+
+  it 'removes from the DOM when disposed', (done) ->
+    Test.insert 'foo', (ctrl) =>
+      @try =>
+          ctrl.dispose()
+          el = $("div.foo[data-ctrl-uid='#{ ctrl.uid }']")
+          expect(el.length).to.equal 0
+      done()
 
 
