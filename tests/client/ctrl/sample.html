@@ -3,3 +3,21 @@
     <code>{{title}}</code>
   </div>
 </template>
+
+
+
+<template name='deep'>
+  <div class='deep'>
+    {{ instance }}
+    {{> ctrl tmpl='foo'}}
+    {{> ctrl tmpl='deep-child' id='myChild'}}
+    {{> ctrl tmpl='foo' id='myFoo'}}
+  </div>
+</template>
+
+<template name='deep-child'>
+  <div class='deep-child'>
+    {{ instance }}
+    {{> ctrl tmpl='foo'}}
+  </div>
+</template>

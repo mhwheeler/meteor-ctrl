@@ -20,12 +20,49 @@ describe '[find] and [el] methods', ->
           expect(ctrl.el().attr("data-ctrl-uid")).to.equal ctrl.uid
       done()
 
-
   it 'finds sub elements', (done) ->
     Test.insert 'foo', (ctrl) =>
       @try =>
           el = ctrl.find('code')
           expect(el.html()).to.equal "Foo:#{ ctrl.uid }"
       done()
+
+
+
+describe 'parent / children', ->
+  it 'has children', (done) ->
+    Test.insert 'deep', (ctrl) =>
+      @try =>
+          children = ctrl.children
+          expect(ctrl.parent).to.be.undefined
+
+          # Children array.
+          expect(children.length).to.equal 3
+          expect(children[0].type).to.equal 'foo'
+          expect(children[1].type).to.equal 'deep-child'
+          expect(children[2].type).to.equal 'foo'
+
+          # Children by "id".
+          expect(children.myChild).to.equal children[1]
+          expect(children.myFoo).to.equal ctrl.children[2]
+
+      done()
+
+
+
+  it 'has parent', (done) ->
+    Test.insert 'deep', (ctrl) =>
+      @try =>
+
+          child = ctrl.children.myChild
+          grandChild = child.children[0]
+
+          expect(grandChild.parent).to.equal child
+          expect(child.parent).to.equal ctrl
+
+
+
+      done()
+
 
 

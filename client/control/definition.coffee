@@ -55,7 +55,7 @@ class Ctrl.Definition
         if parent
           parent.children.push(instance)
           if id = instance.options.id
-            parent.children[id] = @
+            parent.children[id] = instance
 
         # Invoke the "init" method on the instance.
         invoke(@, 'init')
