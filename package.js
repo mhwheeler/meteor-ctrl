@@ -7,7 +7,8 @@ Package.describe({
 Package.on_use(function (api) {
   api.use('http', ['client', 'server']);
   api.use(['templating', 'ui', 'spacebars'], 'client');
-  api.use('coffeescript');
+  api.use(['coffeescript', 'sugar']);
+  api.use(['util']);
   api.export('Ctrl');
 
   // Generated with: github.com/philcockfield/meteor-package-loader
@@ -24,13 +25,14 @@ Package.on_use(function (api) {
 Package.on_test(function (api) {
   api.use(['coffeescript', 'munit']);
   api.use(['templating', 'ui', 'spacebars', 'stylus'], 'client');
+  api.use(['util']);
   api.use('ctrl');
 
   // Generated with: github.com/philcockfield/meteor-package-loader
   api.add_files('tests/client/ctrl/sample.html', 'client');
   api.add_files('tests/client/ctrl/sample.coffee', 'client');
   api.add_files('tests/client/ctrl/sample.styl', 'client');
-  api.add_files('tests/client/example_test.coffee', 'client');
+  api.add_files('tests/client/dom-insertion.coffee', 'client');
 
 });
 

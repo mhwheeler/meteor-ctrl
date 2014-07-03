@@ -63,21 +63,35 @@ class Ctrl.Definition
 
     # CREATED (DOM Ready).
     tmpl.rendered = ->
+        instance = @__instance__
+
         # Ensure that the control has a single root element.
         if @__view__.domrange.members.length > 1
           throw new Error("The [#{ self.type }] ctrl has more than one top-level element in the template.")
 
+        # Add the UID attribute.
+        instance.find().attr('data-ctrl-uid', instance.uid)
+
         # Invoke the "created" method on the instance.
         invoke(@, 'created')
+
+        # Invoke any "ready" handlers.
+        if handlers = instance._onCreated
+          handlers.invoke(instance)
+          handlers.dispose()
+          delete instance._onCreated
 
 
     # DESTROYED.
     tmpl.destroyed = -> @__instance__.dispose()
 
+
     # Prepare events.
     wrapEvent = (func) -> (e, context) -> func.call(context.__instance__, e)
     def.events[key] = wrapEvent(func) for key, func of def.events
     tmpl.events(def.events)
+
+
 
 
 
@@ -99,13 +113,18 @@ class Ctrl.Definition
     el = el[0] if el.jquery
 
     # Render the control.
-    component = UI.renderWithData(Template.ctrl, args)
-    UI.insert(component, el)
+    domrange = UI.renderWithData(Template.ctrl, args)
+    UI.insert(domrange, el)
 
-    # Return the new instance.
+    # Retrieve the new instance.
     instance = Ctrl.__inserted
     delete Ctrl.__inserted
     instance
+
+    # Finish up.
+    result =
+      instance: instance
+      ready: (func) -> instance.onCreated(func)
 
 
 

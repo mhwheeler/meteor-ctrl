@@ -55,6 +55,9 @@ class Ctrl.Instance
     # Remove global reference.
     delete Ctrl.instances[@uid]
 
+    # Dispose of function handlers.
+    @_onCreated?.dispose()
+
     # Finish up.
     @isDisposed = true
 
@@ -84,4 +87,18 @@ class Ctrl.Instance
         $(el)
       else
         $(el).find(selector)
+
+
+
+  ###
+  Registers a handler to be run when the instance is "created" (and ready).
+  @param func: The function to invoke.
+  ###
+  onCreated: (func) ->
+    @_onCreated ?= new Util.Handlers(@)
+    @_onCreated.push(func)
+
+
+
+
 
