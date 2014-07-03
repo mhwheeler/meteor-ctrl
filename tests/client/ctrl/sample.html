@@ -1,5 +1,5 @@
 <template name='foo'>
-  <div class='foo'>
+  <div class='foo ctrl'>
     <code>{{title}}</code>
   </div>
 </template>
@@ -7,17 +7,25 @@
 
 
 <template name='deep'>
-  <div class='deep'>
+  <div class='deep ctrl'>
     {{ instance }}
     {{> ctrl tmpl='foo'}}
-    {{> ctrl tmpl='deep-child' id='myChild'}}
+    {{> ctrl tmpl='deepChild' id='myChild'}}
     {{> ctrl tmpl='foo' id='myFoo'}}
   </div>
 </template>
 
-<template name='deep-child'>
-  <div class='deep-child'>
+<template name='deepChild'>
+  <div class='deep-child ctrl'>
     {{ instance }}
     {{> ctrl tmpl='foo'}}
+  </div>
+</template>
+
+
+
+<template name='autoRun'>
+  <div class='auto-run  ctrl'>
+    <code>{{title}}</code>
   </div>
 </template>

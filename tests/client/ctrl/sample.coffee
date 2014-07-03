@@ -7,4 +7,5 @@ Ctrl.define
 
 
   'deep': {}
-  'deep-child': {}
+  'deepChild': {}
+  'autoRun': {}

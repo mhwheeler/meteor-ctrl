@@ -97,7 +97,7 @@ describe 'parent / children', ->
           # Children array.
           expect(children.length).to.equal 3
           expect(children[0].type).to.equal 'foo'
-          expect(children[1].type).to.equal 'deep-child'
+          expect(children[1].type).to.equal 'deepChild'
           expect(children[2].type).to.equal 'foo'
 
           # Children by "id".
