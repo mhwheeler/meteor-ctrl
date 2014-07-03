@@ -89,6 +89,10 @@ class Ctrl.Instance
         $(el).find(selector)
 
 
+  # Alias to "find".
+  el: (selector) -> @find(selector)
+
+
 
   ###
   Registers a handler to be run when the instance is "created" (and ready).

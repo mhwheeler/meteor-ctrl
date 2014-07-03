@@ -10,3 +10,22 @@ describe 'Inserting a control into the DOM', ->
             expect(el[0]).to.exist
         done()
 
+
+
+describe '[find] and [el] methods', ->
+  it 'has both [find] and [el] methods', (done) ->
+    Test.insert 'foo', (ctrl) =>
+      @try =>
+          expect(ctrl.find().attr("data-ctrl-uid")).to.equal ctrl.uid
+          expect(ctrl.el().attr("data-ctrl-uid")).to.equal ctrl.uid
+      done()
+
+
+  it 'finds sub elements', (done) ->
+    Test.insert 'foo', (ctrl) =>
+      @try =>
+          el = ctrl.find('code')
+          expect(el.html()).to.equal "Foo:#{ ctrl.uid }"
+      done()
+
+
