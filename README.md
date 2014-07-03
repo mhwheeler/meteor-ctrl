@@ -6,13 +6,10 @@ See the [meteor-ctrl-test](https://github.com/philcockfield/meteor-ctrl-test) ha
 
 
 # TODO
-- el, find
 - ctrl (api)
 - hash / session
 
 Packages
-- delay
-- handlers
 - reactive-hash
 
 
