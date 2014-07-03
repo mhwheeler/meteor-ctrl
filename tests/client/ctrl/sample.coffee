@@ -8,4 +8,11 @@ Ctrl.define
 
   'deep': {}
   'deepChild': {}
-  'autoRun': {}
+
+
+  'autorun':
+    created: ->
+      @runCount = 0
+      @autorun =>
+        value = Session.get('reactive-value')
+        @runCount += 1

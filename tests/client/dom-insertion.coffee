@@ -125,3 +125,19 @@ describe 'parent / children', ->
 
 
 
+describe 'autorun', ->
+  afterEach -> Test.tearDown()
+
+  it 're-runs the autorun function', (done) ->
+    KEY = 'reactive-value'
+    Test.insert 'autorun', (ctrl) =>
+      Util.delay 10, =>
+        Session.set(KEY, 'a')
+        Util.delay 10, =>
+          Session.set(KEY, 'b')
+          @try =>
+            expect(ctrl.runCount).to.equal 2
+
+          done()
+
+
