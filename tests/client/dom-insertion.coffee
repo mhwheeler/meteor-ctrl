@@ -1,9 +1,8 @@
 @expect = chai.expect
 
 
-describe 'Inserting a control into the DOM', ->
+describe 'Insert into the DOM', ->
   afterEach -> Test.tearDown()
-
 
   it 'inserts into the DOM with the "data-ctrl-uid" attribute', (done) ->
     Ctrl.defs.foo.insert('body').ready (instance) =>
@@ -12,6 +11,48 @@ describe 'Inserting a control into the DOM', ->
             el = $("div.foo[data-ctrl-uid='#{ instance.uid }']")
             expect(el[0]).to.exist
         done()
+
+
+
+describe 'remove from the DOM', ->
+  it 'removes the ctrl from the DOM', (done) ->
+    Test.insert 'foo', (ctrl) =>
+      @try =>
+          el = $("div.foo[data-ctrl-uid='#{ ctrl.uid }']")
+          expect(el.length).to.equal 1
+          ctrl.remove()
+          el = $("div.foo[data-ctrl-uid='#{ ctrl.uid }']")
+          expect(el.length).to.equal 0
+      done()
+
+
+  it 'disposes of the ctrl when removed', (done) ->
+    Test.insert 'foo', (ctrl) =>
+      @try =>
+          expect(ctrl.isDisposed).to.be.undefined
+          ctrl.remove()
+          expect(ctrl.isDisposed).to.be.true
+      done()
+
+
+  it 'does not fail when removing twice', (done) ->
+    Test.insert 'foo', (ctrl) =>
+      @try =>
+          ctrl.remove()
+          ctrl.remove()
+      done()
+
+
+  it 'removes from the DOM when "dispose" is called', (done) ->
+    Test.insert 'foo', (ctrl) =>
+      @try =>
+          ctrl.dispose()
+          el = $("div.foo[data-ctrl-uid='#{ ctrl.uid }']")
+          expect(el.length).to.equal 0
+      done()
+
+
+
 
 
 
@@ -70,43 +111,11 @@ describe 'parent / children', ->
       done()
 
 
-
-
-describe 'remove', ->
-  it 'removes the ctrl from the DOM', (done) ->
+  it 'does not have parent', (done) ->
     Test.insert 'foo', (ctrl) =>
       @try =>
-          el = $("div.foo[data-ctrl-uid='#{ ctrl.uid }']")
-          expect(el.length).to.equal 1
-          ctrl.remove()
-          el = $("div.foo[data-ctrl-uid='#{ ctrl.uid }']")
-          expect(el.length).to.equal 0
+          expect(ctrl.parent).to.be.undefined
       done()
 
-
-  it 'disposes of the ctrl when removed', (done) ->
-    Test.insert 'foo', (ctrl) =>
-      @try =>
-          expect(ctrl.isDisposed).to.be.undefined
-          ctrl.remove()
-          expect(ctrl.isDisposed).to.be.true
-      done()
-
-
-  it 'does not fail when removing twice', (done) ->
-    Test.insert 'foo', (ctrl) =>
-      @try =>
-          ctrl.remove()
-          ctrl.remove()
-      done()
-
-
-  it 'removes from the DOM when disposed', (done) ->
-    Test.insert 'foo', (ctrl) =>
-      @try =>
-          ctrl.dispose()
-          el = $("div.foo[data-ctrl-uid='#{ ctrl.uid }']")
-          expect(el.length).to.equal 0
-      done()
 
 
