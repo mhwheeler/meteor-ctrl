@@ -25,11 +25,15 @@ describe '[find] and [el] methods', ->
           expect(ctrl.el().attr("data-ctrl-uid")).to.equal ctrl.uid
       done()
 
-  it 'finds sub elements', (done) ->
+  it 'finds child elements with CSS selector', (done) ->
     Test.insert 'foo', (ctrl) =>
       @try =>
           el = ctrl.find('code')
           expect(el.html()).to.equal "Foo:#{ ctrl.uid }"
+
+          el = ctrl.el('code')
+          expect(el.html()).to.equal "Foo:#{ ctrl.uid }"
+
       done()
 
 
