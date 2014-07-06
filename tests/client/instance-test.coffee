@@ -7,7 +7,6 @@ describe 'Instance', ->
         expect(Object.isString(instance.uid)).to.equal true
         expect(instance.type).to.equal 'foo'
         expect(instance.ctrl).to.be.an.instanceOf Ctrl.Control
-
       done()
 
 

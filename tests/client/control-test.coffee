@@ -21,6 +21,23 @@ describe 'Control', ->
       done()
 
 
+  it 'passes [el] method to [instance.find]', (done) ->
+    Test.insert 'foo', (instance) =>
+      ctrl = instance.ctrl
+      count = 0
+      selector = null
+      instance.find = (s) ->
+          count += 1
+          selector = s
+
+      @try =>
+          ctrl.el('.foo')
+          expect(count).to.equal 1
+          expect(selector).to.equal '.foo'
+      done()
+
+
+
 
 describe 'Control: dispose', ->
   it 'is disposed when instance is disposed', (done) ->
@@ -52,3 +69,8 @@ describe 'Control: dispose', ->
           expect(ctrl.children.myFoo).to.equal undefined
           expect(ctrl.children.length).to.equal count - 1
       done()
+
+
+
+
+

@@ -30,3 +30,10 @@ class Ctrl.Control
       delete children[@id]
 
 
+
+  ###
+  Retrieves the a jQuery element for the control.
+  @param selector:  Optional. A CSS selector to search within the element's DOM for.
+                    If ommited the root element is returned.
+  ###
+  el: (selector) -> @context.find(selector)
