@@ -10,7 +10,15 @@ describe 'Instance', ->
       done()
 
 
-
+  it 'invokes callbacks on instance (init/created/destroyed)', (done) ->
+    Test.insert 'callbacksTest', (instance) =>
+      ctrl = instance.ctrl
+      @try =>
+          expect(instance.initWasCalled).to.equal true
+          expect(instance.createdWasCalled).to.equal true
+          instance.dispose()
+          expect(instance.destroyedWasCalled).to.equal true
+      done()
 
 
 
@@ -29,17 +37,7 @@ describe 'Instance: dispose', ->
           expect(instance.children.length).to.equal 0
           for child in children
             expect(child.isDisposed).to.equal true
-
       done()
-
-
-  it 'calls "destroyed" on instance', (done) ->
-    Test.insert 'foo', (instance) =>
-      @try =>
-          instance.dispose()
-          expect(instance.destroyedWasCalled).to.equal true
-      done()
-
 
 
   it 'removes the ctrl from the DOM', (done) ->
