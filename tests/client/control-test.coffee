@@ -72,5 +72,26 @@ describe 'Control: dispose', ->
 
 
 
+describe 'Control: API', ->
+  it 'copies API onto the [ctrl]', (done) ->
+    Test.insert 'apiTest', (instance) =>
+      ctrl = instance.ctrl
+      @try =>
+          expect(ctrl.myMethod().self).to.equal instance # Invoked with [context/instance] as [this].
+          expect(ctrl.myProp()).to.equal 123 # Default value.
+          ctrl.myProp('my value')
+          expect(ctrl.myProp()).to.equal 'my value'
+      done()
+
+
+  it 'overwrites standard Ctrl API', (done) ->
+    Test.insert 'apiTest', (instance) =>
+      ctrl = instance.ctrl
+      @try =>
+          expect(ctrl.children()).to.equal 'my-children'
+      done()
+
+
+
 
 

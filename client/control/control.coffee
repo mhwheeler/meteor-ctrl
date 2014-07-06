@@ -9,9 +9,17 @@ class Ctrl.Control
   constructor: (@context) ->
     instance  = @context
     @type     = instance.type
-    @id       = instance.id
     @uid      = instance.uid
+    @id       = instance.id if instance.id # NB: ID only exists if specified within the tmplate {{ id=123 }}
     @children = []
+
+    # Copy API.
+    for key, func of instance.api
+      do (key, func) =>
+        @[key] = (args...) -> instance.api[key].apply(instance, args)
+
+
+
 
 
   ###
