@@ -7,6 +7,7 @@ describe 'Instance', ->
         expect(Object.isString(instance.uid)).to.equal true
         expect(instance.type).to.equal 'foo'
         expect(instance.ctrl).to.be.an.instanceOf Ctrl.Control
+        expect(Object.isObject(instance.api)).to.equal true
       done()
 
 
@@ -197,15 +198,38 @@ describe 'Instance: Prop', ->
   it 'reads a value from the hash', (done) ->
     Test.insert 'foo', (instance) =>
       instance.hash().set('myProp', 123)
-      @try =>
-        expect(instance.prop('myProp')).to.equal 123
+      @try => expect(instance.prop('myProp')).to.equal 123
       done()
 
   it 'writes a value to the hash', (done) ->
     Test.insert 'foo', (instance) =>
       instance.prop('myProp', 123)
       @try =>
-        expect(instance.hash().get('myProp')).to.equal 123
+          hash = instance.hash()
+          expect(hash.get('myProp')).to.equal 123
+          expect(hash.keys.myProp).to.equal 123
       done()
+
+
+
+describe 'Instance: API', ->
+  it 'copies API definition', (done) ->
+    Test.insert 'apiTest', (instance) =>
+      @try =>
+        expect(instance.api.myMethod().self).to.equal instance
+      done()
+
+
+  it 'has uses a hash prop', (done) ->
+    Test.insert 'apiTest', (instance) =>
+      @try =>
+          expect(instance.api.myProp()).to.equal 123 # Default value.
+          instance.api.myProp('abc')
+          expect(instance.api.myProp()).to.equal 'abc'
+      done()
+
+
+
+
 
 

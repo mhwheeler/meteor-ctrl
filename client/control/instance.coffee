@@ -10,9 +10,9 @@ class Ctrl.Instance
     @id            = options.id if options.id
     @uid           = _.uniqueId('u')
     @type          = def.type
+    @api           = {}
     @helpers       = { __instance__:@ } # NB: Temporarily store the instance for retrieval within [created/init] callback.
     @children      = []
-    @ctrl          = new Ctrl.Control(@)
     @__internal__  = { def:def }
 
     # Store temporary global reference if an "insert" ID was specified.
@@ -21,11 +21,19 @@ class Ctrl.Instance
       Ctrl.__inserted = @
       delete options.__insert
 
+    wrap = (func) ->
+        (args...) -> func.apply(self, args)
+
+    # Wrap API methods.
+    @api[key] = wrap(func) for key, func of def.api
+
     # Wrap helper methods.
-    wrap = (func) -> -> func.call(self)
     @helpers[key] = wrap(func) for key, func of def.helpers
     @helpers.instance ?= ->
       "#{ self.type }##{ self.uid }" # Standard output for {{instance}} within a template.
+
+    # Finish up.
+    @ctrl = new Ctrl.Control(@)
 
 
   ###

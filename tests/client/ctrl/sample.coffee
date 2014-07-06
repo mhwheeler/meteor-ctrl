@@ -4,6 +4,13 @@ Ctrl.define
     created: -> @createdWasCalled = true
     destroyed: -> @destroyedWasCalled = true
 
+
+  'apiTest':
+    api:
+      myProp: (value) -> prop 'myProp', value, default:123
+      myMethod: -> { self: @ }
+
+
   'foo':
     helpers:
       title: -> "Foo:#{ @uid }"
