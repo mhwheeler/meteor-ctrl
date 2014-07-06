@@ -143,7 +143,7 @@ describe 'autorun', ->
 
 
 
-describe 'Session', ->
+describe 'ScopedSession', ->
   afterEach -> Test.tearDown()
 
   it 'has a session with a namespace of the UID', (done) ->
@@ -168,5 +168,42 @@ describe 'Session', ->
       done()
 
 
+
+describe 'ReactiveHash', ->
+  afterEach -> Test.tearDown()
+
+  it 'has a ReactiveHash', (done) ->
+    Test.insert 'foo', (ctrl) =>
+      @try =>
+          expect(ctrl.hash()).to.be.an.instanceof ReactiveHash
+          expect(ctrl.hash()).to.equal ctrl.hash() # Same instance.
+      done()
+
+  it 'disposes of the ReactiveHash', (done) ->
+    Test.insert 'foo', (ctrl) =>
+      @try =>
+          hash = ctrl.hash()
+          ctrl.dispose()
+          expect(hash.isDisposed).to.equal true
+      done()
+
+
+
+describe 'Prop', ->
+  afterEach -> Test.tearDown()
+
+  it 'reads a value from the hash', (done) ->
+    Test.insert 'foo', (ctrl) =>
+      ctrl.hash().set('myProp', 123)
+      @try =>
+        expect(ctrl.prop('myProp')).to.equal 123
+      done()
+
+  it 'writes a value to the hash', (done) ->
+    Test.insert 'foo', (ctrl) =>
+      ctrl.prop('myProp', 123)
+      @try =>
+        expect(ctrl.hash().get('myProp')).to.equal 123
+      done()
 
 

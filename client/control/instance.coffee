@@ -68,6 +68,7 @@ class Ctrl.Instance
     internal.onCreated?.dispose()
     delete internal.onCreated
     internal.session?.dispose()
+    internal.hash?.dispose()
 
 
     # Finish up.
@@ -119,9 +120,27 @@ class Ctrl.Instance
   ###
   Retrieves the a scoped-session for the ctrl.
   ###
-  session: ->
-    session = @__internal__.session ?= new ScopedSession("ctrl:#{ @uid }")
+  session: -> session = @__internal__.session ?= new ScopedSession("ctrl:#{ @uid }")
 
+
+
+  ###
+  Retrieves the a reactive-hash for the ctrl.
+  ###
+  hash: -> session = @__internal__.hash ?= new ReactiveHash()
+
+
+
+  ###
+  Gets or sets the property value for the given key.
+  @param key:         The unique identifier of the value (this is prefixed with the namespace).
+  @param value:       (optional). The value to set (pass null to remove).
+  @param options:
+            default:  (optional). The default value to return if the session does not contain the value (ie. undefined).
+            onlyOnChange:  (optional). Will only call set if the value has changed.
+                                           Default is set by the [defaultOnlySetIfChanged] property.
+  ###
+  prop: (key, value, options = {}) -> @hash().prop(key, value, options)
 
 
 
