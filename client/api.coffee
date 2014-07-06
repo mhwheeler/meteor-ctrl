@@ -35,6 +35,12 @@ Looks up a Ctrl instance for the given DOM elemnet.
 
 @returns the corresponding Ctrl, or null if not found.
 ###
-Ctrl.fromDom = (el) ->
+Ctrl.find = (el) ->
+  # Setup initial conditions.
+  return unless el?
+  el = $(el) if not el.jquery?
+  return if el.length is 0
 
-  console.log '======TODO fromDom'
+  # Look up the control instance.
+  if uid = el.data('ctrl-uid')
+    Ctrl.instances[uid]

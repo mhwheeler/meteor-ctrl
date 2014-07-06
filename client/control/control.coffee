@@ -2,7 +2,6 @@
 Represents the public API of a control.
 ###
 class Ctrl.Control
-
   ###
   Constructor.
   @param context: The Ctrl instance.
