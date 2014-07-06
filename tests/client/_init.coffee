@@ -1,4 +1,13 @@
 @Test = {}
+@expect = chai.expect
+
+
+if Meteor.isClient
+  Meteor.startup ->
+    $('title').html('Tests:Ctrl')
+
+
+# --------------------------------------------------------------------------
 
 
 Test.insert = (ctrlDef, callback) ->

@@ -1,4 +1,3 @@
-@expect = chai.expect
 
 
 describe 'DOM insertion', ->
@@ -11,6 +10,7 @@ describe 'DOM insertion', ->
             el = $("div.foo[data-ctrl-uid='#{ instance.uid }']")
             expect(el[0]).to.exist
         done()
+
 
 
 
@@ -139,5 +139,34 @@ describe 'autorun', ->
             expect(ctrl.runCount).to.equal 2
 
           done()
+
+
+
+
+describe 'Session', ->
+  afterEach -> Test.tearDown()
+
+  it 'has a session with a namespace of the UID', (done) ->
+    Test.insert 'foo', (ctrl) =>
+      @try => expect(ctrl.session().namespace).to.equal "__ctrl:#{ ctrl.uid }"
+      done()
+
+  it 'has returns the same instance of the session', (done) ->
+    Test.insert 'foo', (ctrl) =>
+      @try =>
+        session1 = ctrl.session()
+        session2 = ctrl.session()
+        expect(session1).to.equal session2
+      done()
+
+  it 'disposes of the session', (done) ->
+    Test.insert 'foo', (ctrl) =>
+      @try =>
+        session = ctrl.session()
+        ctrl.dispose()
+        expect(session.isDisposed).to.equal true
+      done()
+
+
 
 

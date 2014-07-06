@@ -33,12 +33,13 @@ class Ctrl.Instance
   dispose: ->
     # Setup initial conditions.
     return if @isDisposed
+    internal = @__internal__
 
     # Remove from the DOM if required.
     # NB: This is only necessary when "dispose" is being called directly
     #     without either Blaze destroying the element, or the "remove" method
     #     having caused the ctrl to be destroyed.
-    blazeView = @__internal__.blazeView
+    blazeView = internal.blazeView
     unless blazeView.isDestroyed
       UI.remove(blazeView.domrange)
 
@@ -53,19 +54,21 @@ class Ctrl.Instance
       delete children[@id]
 
     # Stop [autorun] callbacks.
-    if depsHandles = @__internal__.depsHandles
+    if depsHandles = internal.depsHandles
       depsHandles.each (handle) -> handle?.stop?()
-      delete @__internal__.depsHandles
+      delete internal.depsHandles
 
     # Invoke [destroyed] method on the instance.
-    @__internal__.def.destroyed?.call?(@)
+    internal.def.destroyed?.call?(@)
 
     # Remove global reference.
     delete Ctrl.instances[@uid]
 
-    # Dispose of function handlers.
-    @__internal__.onCreated?.dispose()
-    delete @__internal__.onCreated
+    # Dispose of resources.
+    internal.onCreated?.dispose()
+    delete internal.onCreated
+    internal.session?.dispose()
+
 
     # Finish up.
     @isDisposed = true
@@ -108,8 +111,16 @@ class Ctrl.Instance
   @param func: The function to invoke.
   ###
   onCreated: (func) ->
-    handlers = @__internal__.onCreated ?= new Util.Handlers(@)
+    handlers = @__internal__.onCreated ?= new Handlers(@)
     handlers.push(func)
+
+
+
+  ###
+  Retrieves the a scoped-session for the ctrl.
+  ###
+  session: ->
+    session = @__internal__.session ?= new ScopedSession("ctrl:#{ @uid }")
 
 
 
