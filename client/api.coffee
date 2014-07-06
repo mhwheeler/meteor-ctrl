@@ -26,4 +26,15 @@ Ctrl.define = (defs = {}) ->
 
 
 
+###
+Looks up a Ctrl instance for the given DOM elemnet.
+@param el: The element to look up, can be:
+              - a jQuery element.
+              - a DOM element
+              - a CSS selector (string).
 
+@returns the corresponding Ctrl, or null if not found.
+###
+Ctrl.fromDom = (el) ->
+
+  console.log '======TODO fromDom'

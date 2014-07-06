@@ -40,7 +40,7 @@ class Ctrl.Definition
         instance.__internal__.blazeView = blazeView
 
         # Store global reference to the instance.
-        Ctrl.instances[instance.uid] = instance
+        Ctrl.instances[instance.uid] = instance.ctrl
 
         # Retrieve a reference to the parent control.
         findParent = (blazeView) ->
@@ -50,12 +50,15 @@ class Ctrl.Definition
                 else
                   findParent(blazeView.parentView) # <== RECURSION.
         instance.parent = parent = findParent(blazeView.parentView)
+        instance.ctrl.parent = parent?.ctrl
 
         # Register child within the parent's [children] array.
         if parent
           parent.children.push(instance)
+          parent.ctrl.children.push(instance.ctrl)
           if id = instance.options.id
             parent.children[id] = instance
+            parent.ctrl.children[id] = instance.ctrl
 
         # Invoke the "init" method on the instance.
         invoke(@, 'init')

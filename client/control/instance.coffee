@@ -12,7 +12,8 @@ class Ctrl.Instance
     @type          = def.type
     @helpers       = { __instance__:@ } # NB: Temporarily store the instance for retrieval within [created/init] callback.
     @children      = []
-    @__internal__ = { def:def }
+    @ctrl          = new Ctrl.Control(@)
+    @__internal__  = { def:def }
 
     # Store temporary global reference if an "insert" ID was specified.
     # This is retrieved (and cleaned up) via the "insert" method.
@@ -33,6 +34,7 @@ class Ctrl.Instance
   dispose: ->
     # Setup initial conditions.
     return if @isDisposed
+    @isDisposed = true
     internal = @__internal__
 
     # Remove from the DOM if required.
@@ -69,10 +71,8 @@ class Ctrl.Instance
     delete internal.onCreated
     internal.session?.dispose()
     internal.hash?.dispose()
+    @ctrl.dispose()
 
-
-    # Finish up.
-    @isDisposed = true
 
 
 
