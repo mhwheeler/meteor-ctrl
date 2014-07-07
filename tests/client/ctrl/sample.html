@@ -12,9 +12,9 @@
 <template name='deep'>
   <div class='deep ctrl'>
     {{ instance }}
-    {{> ctrl tmpl='foo'}}
-    {{> ctrl tmpl='deepChild' id='myChild'}}
-    {{> ctrl tmpl='foo' id='myFoo'}}
+    {{> ctrl type='foo'}}
+    {{> ctrl type='deepChild' id='myChild'}}
+    {{> ctrl type='foo' id='myFoo'}}
   </div>
 </template>
 
@@ -22,7 +22,7 @@
 <template name='deepChild'>
   <div class='deep-child ctrl'>
     {{ instance }}
-    {{> ctrl tmpl='foo'}}
+    {{> ctrl type='foo'}}
   </div>
 </template>
 

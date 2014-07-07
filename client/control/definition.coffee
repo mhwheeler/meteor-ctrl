@@ -108,7 +108,7 @@ class Ctrl.Definition
   ###
   insert: (el, args = {}) ->
     # Setup initial conditions.
-    args.tmpl = @type
+    args.type = @type
     args.__insert = _.uniqueId() # Temporarily store an ID to retrieve the instance with.
 
     # Process the element to insert into.
