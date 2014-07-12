@@ -1,7 +1,7 @@
 {
   "meteor": {
     "git": "https://github.com/meteor/meteor.git",
-    "branch": "blaze-refactor"
+    "branch": "devel"
   },
 
   "name": "ctrl",

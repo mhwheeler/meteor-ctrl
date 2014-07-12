@@ -1,18 +1,6 @@
 # Meteor-Control.
 Logical UI control abstraction around blaze.
 
-See the [meteor-ctrl-test](https://github.com/philcockfield/meteor-ctrl-test) harness for this package.
-
-
-
-# TODO
-- ctrl (api)
-- hash / session
-
-Packages
-- reactive-hash
-
-
 
 
 # Run Tests
