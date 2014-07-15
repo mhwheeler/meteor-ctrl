@@ -27,7 +27,6 @@ describe 'Instance', ->
       @try =>
         expect(instance.model().name).to.equal 'my-model'
         expect(instance.modelCount).to.equal 1
-
       done()
 
 
