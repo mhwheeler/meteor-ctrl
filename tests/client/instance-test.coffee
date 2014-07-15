@@ -22,6 +22,17 @@ describe 'Instance', ->
       done()
 
 
+  it 'invokes the [model] method', (done) ->
+    Test.insert 'callbacksTest', (instance) =>
+      @try =>
+        expect(instance.model().name).to.equal 'my-model'
+        expect(instance.modelCount).to.equal 1
+
+      done()
+
+
+
+
 
 describe 'Instance: dispose', ->
   afterEach -> Test.tearDown()

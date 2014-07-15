@@ -1,8 +1,13 @@
 Ctrl.define
   'callbacksTest':
-    init: -> @initWasCalled = true
+    init: ->
+      @initWasCalled = true
+      @modelCount = 0
     created: -> @createdWasCalled = true
     destroyed: -> @destroyedWasCalled = true
+    model: ->
+      @modelCount += 1
+      { name:'my-model' }
 
 
   'apiTest':

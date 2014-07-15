@@ -32,6 +32,8 @@ class Ctrl.Instance
     @helpers.instance ?= ->
       "#{ self.type }##{ self.uid }" # Standard output for {{instance}} within a template.
 
+    @model = wrap(def.model)
+
     # Finish up.
     @ctrl = new Ctrl.Control(@)
 
