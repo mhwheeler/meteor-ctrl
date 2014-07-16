@@ -223,6 +223,8 @@ describe 'Instance: Prop', ->
 
 
 describe 'Instance: API', ->
+  afterEach -> Test.tearDown()
+
   it 'copies API definition', (done) ->
     Test.insert 'apiTest', (instance) =>
       @try =>
@@ -240,6 +242,25 @@ describe 'Instance: API', ->
 
 
 
+describe 'Instance: data', ->
+  afterEach -> Test.tearDown()
 
+  it 'has no data', (done) ->
+    Test.insert 'foo', (instance) =>
+      @try => expect(instance.helpers.data).to.equal undefined
+      done()
 
+  it 'has copes the "data" value to the instance', (done) ->
+    Test.insert 'deep', (instance) =>
+      @try =>
+          child = instance.children.myChild
+          expect(child.data).to.eql { foo:123 }
+      done()
+
+  it 'has makes the "data" value available on [helpers]', (done) ->
+    Test.insert 'deep', (instance) =>
+      @try =>
+          child = instance.children.myChild
+          expect(child.helpers.data()).to.eql { foo:123 }
+      done()
 

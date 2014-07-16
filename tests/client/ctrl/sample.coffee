@@ -22,7 +22,9 @@ Ctrl.define
       title: -> "Foo:#{ @uid }"
 
 
-  'deep': {}
+  'deep':
+    helpers:
+      childData: -> { foo:123 }
   'deepChild': {}
 
 

@@ -29,10 +29,14 @@ class Ctrl.Instance
 
     # Wrap helper methods.
     @helpers[key] = wrap(func) for key, func of def.helpers
-    @helpers.instance ?= ->
-      "#{ self.type }##{ self.uid }" # Standard output for {{instance}} within a template.
-
+    @helpers.instance ?= -> "#{ self.type }##{ self.uid }" # Standard output for {{instance}} within a template.
     @model = wrap(def.model)
+
+    # Store data.
+    unless @helpers.data?
+      if @options.data
+        @data = @options.data
+        @helpers.data = => @data
 
     # Finish up.
     @ctrl = new Ctrl.Control(@)

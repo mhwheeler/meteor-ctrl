@@ -31,9 +31,9 @@ Package.on_test(function (api) {
 
   // Generated with: github.com/philcockfield/meteor-package-loader
   api.add_files('tests/client/ctrl/sample.html', 'client');
+  api.add_files('tests/client/_init.coffee', 'client');
   api.add_files('tests/client/ctrl/sample.coffee', 'client');
   api.add_files('tests/client/ctrl/sample.styl', 'client');
-  api.add_files('tests/client/_init.coffee', 'client');
   api.add_files('tests/client/control-test.coffee', 'client');
   api.add_files('tests/client/dom-test.coffee', 'client');
   api.add_files('tests/client/instance-test.coffee', 'client');
