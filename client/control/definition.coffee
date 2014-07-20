@@ -49,16 +49,9 @@ class Ctrl.Definition
                   return inst
                 else
                   findParent(blazeView.parentView) # <== RECURSION.
-        instance.parent = parent = findParent(blazeView.parentView)
-        instance.ctrl.parent = parent?.ctrl
 
-        # Register child within the parent's [children] array.
-        if parent
-          parent.children.push(instance)
-          parent.ctrl.children.push(instance.ctrl)
-          if id = instance.options.id
-            parent.children[id] = instance
-            parent.ctrl.children[id] = instance.ctrl
+        parent = findParent(blazeView.parentView)
+        CtrlUtil.registerChild(parent, instance)
 
         # Invoke the "init" method on the instance.
         invoke(@, 'init')
@@ -126,7 +119,7 @@ class Ctrl.Definition
 
     # Finish up.
     result =
-      instance: instance
+      ctrl: instance.ctrl
       ready: (func) -> instance.onCreated(func)
 
 

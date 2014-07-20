@@ -120,6 +120,34 @@ class Ctrl.Instance
   el: (selector) -> @find(selector)
 
 
+  ###
+  Appends a child control.
+  @param def: The Ctrl definition
+                - Object: The definition object.
+                - String: The type of the Ctrl.
+
+  @param el:  The element to insert within. Can be:
+                - jQuery element
+                - String (CSS selector)
+                - null (uses root element of the control)
+  ###
+  appendCtrl: (def, el, args) ->
+    # Look up the Ctrl definition if required.
+    def = Ctrl.defs[def] if Object.isString(def)
+    throw new Error('Control definition required') unless def?
+
+    # Insert the control.
+    el = @find(el) unless el?.jquery?
+    result = def.insert(el, args)
+
+    # Establish the parent/child relationships.
+    CtrlUtil.registerChild(@, result.ctrl.context)
+
+    # Finish up.
+    result
+
+
+
 
   ###
   Registers a handler to be run when the instance is "created" (and ready).
@@ -159,5 +187,27 @@ class Ctrl.Instance
 
 
 
+  # PRIVATE ----------------------------------------------------------------------
+
+
+
+CtrlUtil.registerChild = (parentInstance, childInstance) ->
+  return unless (parentInstance? and childInstance?)
+
+  # Update parent reference.
+  childInstance.parent = parentInstance
+  childInstance.ctrl.parent = parentInstance.ctrl
+
+  push = (item, children) ->
+      alreadyExists = children.any (value) -> value.uid is item.uid
+      children.push(item) unless alreadyExists
+
+  # Update [children] collection.
+  push(childInstance, parentInstance.children)
+  push(childInstance.ctrl, parentInstance.ctrl.children)
+
+  if id = childInstance.options.id
+    parentInstance.children[id] = childInstance
+    parentInstance.ctrl.children[id] = childInstance.ctrl
 
 

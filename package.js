@@ -13,6 +13,7 @@ Package.on_use(function (api) {
 
   // Generated with: github.com/philcockfield/meteor-package-loader
   api.add_files('client/tmpl/tmpl.html', 'client');
+  api.add_files('client/api.js', 'client');
   api.add_files('client/api.coffee', 'client');
   api.add_files('client/control/control.coffee', 'client');
   api.add_files('client/control/definition.coffee', 'client');

@@ -137,6 +137,23 @@ describe 'Instance: parent / children', ->
       done()
 
 
+describe 'Instance: appendChild', ->
+  afterEach -> Test.tearDown()
+
+  it 'appends a child control directly within the parent', (done) ->
+    Test.insert 'foo', (instance) =>
+      result = instance.appendCtrl 'foo', null
+      childCtrl = result.ctrl
+      @try =>
+          expect(instance.el('> .foo').length).to.equal 1
+          expect(childCtrl.parent).to.equal instance.ctrl
+          expect(childCtrl.context.parent).to.equal instance
+          expect(instance.children[0]).to.equal childCtrl.context
+          expect(instance.ctrl.children[0]).to.equal childCtrl
+
+      done()
+
+
 
 describe 'Instance: autorun', ->
   afterEach -> Test.tearDown()
