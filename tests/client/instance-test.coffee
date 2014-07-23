@@ -281,3 +281,57 @@ describe 'Instance: data', ->
           expect(child.helpers.data()).to.eql { foo:123 }
       done()
 
+
+
+describe 'instance.ancestor()', ->
+  afterEach -> Test.tearDown()
+
+  it 'does not find an ancestor', (done) ->
+    Test.insert 'deep', (instance) =>
+      deepChild = instance.children.myChild.children.foo
+      @try =>
+          expect(deepChild.ancestor(type:'not-exist')).to.equal null
+      done()
+
+  it 'finds the first ancestor', (done) ->
+    Test.insert 'deep', (instance) =>
+      deepChild = instance.children.myChild.children.foo
+      @try =>
+          expect(deepChild.ancestor(type:'deep')).to.equal instance
+      done()
+
+  it 'does not find the same type ancestor', (done) ->
+    Test.insert 'deep', (instance) =>
+      deepChild = instance.children.myChild.children.foo
+      @try =>
+          expect(deepChild.ancestor(type:'foo')).to.equal null
+      done()
+
+
+
+describe 'instance.closesst()', ->
+  afterEach -> Test.tearDown()
+
+  it 'does not find the closesst ancestor', (done) ->
+    Test.insert 'deep', (instance) =>
+      deepChild = instance.children.myChild.children.foo
+      @try =>
+          expect(deepChild.closest(type:'not-found')).to.equal null
+      done()
+
+  it 'finds the closesst ancestor', (done) ->
+    Test.insert 'deep', (instance) =>
+      deepChild = instance.children.myChild.children.foo
+      @try =>
+          expect(deepChild.closest(type:'deep')).to.equal instance
+      done()
+
+  it 'finds the same instance', (done) ->
+    Test.insert 'deep', (instance) =>
+      deepChild = instance.children.myChild.children.foo
+      @try =>
+          expect(deepChild.closest(type:'foo')).to.equal deepChild
+      done()
+
+
+

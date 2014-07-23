@@ -186,8 +186,50 @@ class Ctrl.Instance
 
 
 
+  ###
+  Walks up the hierarchy returning the first ancestor that
+  matches the given selector.
+  @param selector:
+            - type: The name of the type to look for.
+  @returns The matching ancestor [Instance] or Null.
+  ###
+  ancestor: (selector = {}) ->
+    walk = (instance) ->
+              return null unless instance?
+              if type = selector.type
+                if matchType(type, instance)
+                  return instance
+                else
+                  return walk(instance.parent) # <== RECURSION.
+              # Not found.
+              null
+    walk(@parent)
 
-  # PRIVATE ----------------------------------------------------------------------
+
+
+  ###
+  Finds the closest matching control Instance.
+  @param selector: See 'ancestor'
+  @returns
+        - This instance (if matched),
+        - The matching ancestor
+        - Null.
+
+  ###
+  closest: (selector = {}) ->
+    if type = selector.type
+      return @ if matchType(type, @)
+    @ancestor(selector)
+
+
+
+
+# PRIVATE ----------------------------------------------------------------------
+
+
+
+matchType = (type, obj) -> obj?.type is type
+
 
 
 
