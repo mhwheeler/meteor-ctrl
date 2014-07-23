@@ -12,9 +12,7 @@
   "git": "https://github.com/philcockfield/meteor-control.git",
   "packages": {
     "sugar": {},
-    "munit": {
-      "path": "../../libs/meteor-munit"
-    },
+    "munit": {},
     "util": {
       "path": "../meteor-util"
     },
