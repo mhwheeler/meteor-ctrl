@@ -59,6 +59,9 @@ class Ctrl.Instance
     unless blazeView.isDestroyed
       UI.remove(blazeView.domrange)
 
+    # Remove all custom events (jQuery).
+    @off() if internal.events?
+
     # Dispose of children first.
     for child in _.clone(@children)
       child.dispose()
@@ -241,7 +244,31 @@ class Ctrl.Instance
     defaultValue
 
 
+  ###
+  Registers a custom event for the control.
+  @param event:           The name of the event (eg. 'my:event')
+  @param func(j, args):   The event handlers/
+                          - j:      The jQuery event args.
+                          - args:   The arguments object passed with the
+                                    custom event.
+  ###
+  on: (event, func) -> events(@).on(event, func)
 
+
+  ###
+  Remove a custom event handler from the control.
+  @param event:  The name of the event (eg. 'my:event')
+  @param func:   The event handler function.
+  ###
+  off: (event, func) -> events(@).off(event, func)
+
+
+  ###
+  Triggers a custom event.
+  @param event:  The name of the event (eg. 'my:event')
+  @param args:   Optional. Arguments to pass with the event.
+  ###
+  trigger: (event, args) -> events(@).trigger(event, args)
 
 
 # PRIVATE ----------------------------------------------------------------------
@@ -249,6 +276,13 @@ class Ctrl.Instance
 
 
 matchType = (type, obj) -> obj?.type is type
+
+
+events = (instance) ->
+  internal = instance.__internal__
+  internal.events = new Util.Events() unless internal.events
+  internal.events
+
 
 
 

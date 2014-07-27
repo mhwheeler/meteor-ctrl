@@ -10,6 +10,7 @@ Ctrl.define
       { name:'my-model' }
 
 
+
   'apiTest':
     api:
       myProp: (value) -> @prop 'myProp', value, default:123
@@ -18,9 +19,11 @@ Ctrl.define
       children: -> 'my-children'
 
 
+
   'foo':
     helpers:
       title: -> "Foo:#{ @uid }"
+
 
 
   'deep':
@@ -29,9 +32,15 @@ Ctrl.define
   'deepChild': {}
 
 
+
   'autorun':
     created: ->
       @runCount = 0
       @autorun =>
         value = Session.get('reactive-value')
         @runCount += 1
+
+
+  'eventTest': {}
+    # helpers:
+    #   title: -> "Foo:#{ @uid }"

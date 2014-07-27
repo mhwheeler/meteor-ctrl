@@ -44,3 +44,25 @@ class Ctrl.Control
                     If ommited the root element is returned.
   ###
   el: (selector) -> @context.find(selector)
+
+
+
+  ###
+  Registers a custom event for the control.
+  @param event:           The name of the event (eg. 'my:event')
+  @param func(j, args):   The event handlers/
+                          - j:      The jQuery event args.
+                          - args:   The arguments object passed with the
+                                    custom event.
+  ###
+  on: (event, func) -> @context.on(event, func)
+
+
+  ###
+  Remove a custom event handler from the control.
+  @param event:  The name of the event (eg. 'my:event')
+  @param func:   The event handler function.
+  ###
+  off: (event, func) -> @context.off(event, func)
+
+
