@@ -222,6 +222,26 @@ class Ctrl.Instance
     @ancestor(selector)
 
 
+  ###
+  Looks on the [data] then the [options] for the given value,
+  and if it's a function executes it to convert it to a value.
+
+  @param attr:          The key of the attribute to read.
+  @param defaultValue:  Optional. The default value to use if not found.
+
+  ###
+  defaultValue: (attr, defaultValue) ->
+    values = [ @options?[attr], @data?[attr] ]
+    for value in values
+      if value isnt undefined
+        value = Util.asValue(value, defaultValue)
+        return value if value isnt undefined
+
+    # No-value.
+    defaultValue
+
+
+
 
 
 # PRIVATE ----------------------------------------------------------------------

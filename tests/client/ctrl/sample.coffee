@@ -13,6 +13,7 @@ Ctrl.define
   'apiTest':
     api:
       myProp: (value) -> @prop 'myProp', value, default:123
+      myDefault: -> @defaultValue('myDefault', 'foo')
       myMethod: -> { self: @ }
       children: -> 'my-children'
 

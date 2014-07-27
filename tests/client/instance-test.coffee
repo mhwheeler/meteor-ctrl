@@ -334,4 +334,32 @@ describe 'instance.closesst()', ->
       done()
 
 
+describe 'instance.defaultValue()', ->
+  afterEach -> Test.tearDown()
+
+  it 'returns the fallback when default value not available', (done) ->
+    Test.insert 'apiTest', (instance) =>
+      @try => expect(instance.ctrl.myDefault()).to.equal 'foo'
+      done()
+
+  it 'specifies default value from [data]', (done) ->
+    Test.insert 'apiTest', data:{ myDefault:123 }, (instance) =>
+      @try => expect(instance.ctrl.myDefault()).to.equal 123
+      done()
+
+  it 'specifies default value from [options] (overriding [data])', (done) ->
+    args =
+      data: { myDefault:123 }
+      myDefault:'abc'
+    Test.insert 'apiTest', args, (instance) =>
+      @try => expect(instance.ctrl.myDefault()).to.equal 'abc'
+      done()
+
+
+describe 'instance (events)', ->
+  afterEach -> Test.tearDown()
+  it 'TODO', ->
+    console.error 'TODO - ctrl events'
+
+
 

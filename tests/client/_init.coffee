@@ -11,9 +11,13 @@ if Meteor.isClient
 # --------------------------------------------------------------------------
 
 
-Test.insert = (ctrlDef, callback) ->
+Test.insert = (ctrlDef, options, callback) ->
+  if Object.isFunction(options)
+    callback = options
+    options = undefined
+
   ctrlDef = Ctrl.defs[ctrlDef] if Object.isString(ctrlDef)
-  ctrlDef.insert('body').ready (instance) -> callback?(instance)
+  ctrlDef.insert('body', options).ready (instance) -> callback?(instance)
 
 
 
