@@ -11,7 +11,7 @@ Package.on_use(function (api) {
   api.use(['util']);
   api.export('Ctrl');
 
-  // Generated with: github.com/philcockfield/meteor-package-loader
+  // Generated with: github.com/philcockfield/meteor-package-paths
   api.add_files('client/tmpl/tmpl.html', 'client');
   api.add_files('client/api.js', 'client');
   api.add_files('client/api.coffee', 'client');
@@ -30,7 +30,7 @@ Package.on_test(function (api) {
   api.use(['util']);
   api.use('ctrl');
 
-  // Generated with: github.com/philcockfield/meteor-package-loader
+  // Generated with: github.com/philcockfield/meteor-package-paths
   api.add_files('tests/client/ctrl/sample.html', 'client');
   api.add_files('tests/client/_init.coffee', 'client');
   api.add_files('tests/client/ctrl/sample.coffee', 'client');
