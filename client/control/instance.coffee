@@ -81,7 +81,7 @@ class Ctrl.Instance
     internal.def.destroyed?.call?(@)
 
     # Remove global reference.
-    delete Ctrl.instances[@uid]
+    delete Ctrl.ctrls[@uid]
 
     # Dispose of resources.
     internal.onCreated?.dispose()

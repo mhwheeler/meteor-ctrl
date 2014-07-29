@@ -40,7 +40,7 @@ class Ctrl.Definition
         instance.__internal__.blazeView = blazeView
 
         # Store global reference to the instance.
-        Ctrl.instances[instance.uid] = instance.ctrl
+        Ctrl.ctrls[instance.uid] = instance.ctrl
 
         # Retrieve a reference to the parent control.
         findParent = (blazeView) ->

@@ -66,9 +66,9 @@ describe 'Instance: dispose', ->
     Test.insert 'foo', (instance) =>
       ctrl = instance.ctrl
       @try =>
-          expect(Ctrl.instances[instance.uid]).to.equal ctrl
+          expect(Ctrl.ctrls[instance.uid]).to.equal ctrl
           instance.dispose()
-          expect(Ctrl.instances[instance.uid]).to.be.undefined
+          expect(Ctrl.ctrls[instance.uid]).to.be.undefined
       done()
 
 

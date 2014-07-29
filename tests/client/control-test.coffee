@@ -56,7 +56,7 @@ describe 'Control: dispose', ->
           ctrl.dispose()
           expect(instance.isDisposed).to.equal true
           expect(ctrl.isDisposed).to.equal true
-          expect(Ctrl.instances[ctrl.uid]).to.equal undefined
+          expect(Ctrl.ctrls[ctrl.uid]).to.equal undefined
       done()
 
 

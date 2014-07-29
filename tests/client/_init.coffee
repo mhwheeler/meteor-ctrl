@@ -23,7 +23,7 @@ Test.insert = (ctrlDef, options, callback) ->
 
 Test.tearDown = ->
   # Remove all ctrl instances.
-  for key, instance of Ctrl.instances
-    instance.dispose()
+  for key, ctrl of Ctrl.ctrls
+    ctrl.dispose()
 
 
