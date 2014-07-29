@@ -3,7 +3,7 @@
 
 Ctrl = {} unless Ctrl?
 Ctrl.defs = {}
-Ctrl.instances = {} # Referenced by the instance UID.
+Ctrl.ctrls = {} # Referenced by the instance UID.
 
 
 
@@ -40,8 +40,10 @@ Ctrl.find = (el) ->
   # Setup initial conditions.
   return unless el?
   el = $(el) if not el.jquery?
-  return if el.length is 0
+  if el.length > 0
+    # Look up the control instance.
+    view = Blaze.getElementView(el[0])
+    view?.__instance__?.ctrl
 
-  # Look up the control instance.
-  if uid = el.data('ctrl-uid')
-    Ctrl.instances[uid]
+
+
