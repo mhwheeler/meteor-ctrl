@@ -7,7 +7,7 @@
   "name": "ctrl",
   "description": "Logical UI control abstraction around blaze",
   "homepage": "https://github.com/philcockfield/meteor-control",
-  "author": "Phil Cockfield (https://github.com/philcockfield)",
+  "author": "Respondly (https://github.com/Respondly)",
   "version": "0.0.2",
   "git": "https://github.com/philcockfield/meteor-control.git",
   "packages": {
@@ -21,3 +21,5 @@
     }
   }
 }
+
+
