@@ -133,6 +133,8 @@ class Ctrl.Instance
                 - jQuery element
                 - String (CSS selector)
                 - null (uses root element of the control)
+
+  @param args: The control arguments.
   ###
   appendCtrl: (def, el, args) ->
     # Look up the Ctrl definition if required.
