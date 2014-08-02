@@ -29,6 +29,9 @@ class Ctrl.Definition
 
     # INIT (invoked at construction, prior to the DOM being available).
     tmpl.created = ->
+        unless @data
+          throw new Error("Use {{> ctrl type='#{ def.type }' }} to insert the ctrl within a template.")
+
         # Retrieve the ctrl instance from the data (helpers) object,
         # then clean up the data object.
         instance = @__instance__ = @data.__instance__
