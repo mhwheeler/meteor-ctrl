@@ -1,5 +1,4 @@
 #= base
-### @export Ctrl ###
 
 Ctrl = {} unless Ctrl?
 Ctrl.defs = {}
@@ -36,7 +35,7 @@ Looks up a Ctrl instance for the given DOM elemnet.
 
 @returns the corresponding Ctrl, or null if not found.
 ###
-Ctrl.find = (el) ->
+Ctrl.fromElement = (el) ->
   # Setup initial conditions.
   return unless el?
   el = $(el) if not el.jquery?
