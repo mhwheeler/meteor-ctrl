@@ -34,6 +34,15 @@ describe 'Ctrl.fromElement', ->
         done()
 
 
+  it 'via Event object', (done) ->
+    Test.insert 'foo', (instance) =>
+        @try =>
+          e = new jQuery.Event('click')
+          e.target = instance.el()[0]
+          expect(Ctrl.fromElement(e)).to.equal instance.ctrl
+        done()
+
+
   it 'returns nothing when not found', (done) ->
     Test.insert 'foo', (instance) =>
       @try =>

@@ -30,14 +30,15 @@ Ctrl.define = (defs = {}) ->
 Looks up a Ctrl instance for the given DOM elemnet.
 @param el: The element to look up, can be:
               - a jQuery element.
+              - a jQuery event (uses .target)
               - a DOM element
               - a CSS selector (string).
 
 @returns the corresponding Ctrl, or null if not found.
 ###
 Ctrl.fromElement = (el) ->
-  # Setup initial conditions.
   return unless el?
+  el = el.target if (el instanceof jQuery.Event)
   el = $(el) if not el.jquery?
   if el.length > 0
     # Look up the control instance.
