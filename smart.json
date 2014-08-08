@@ -1,17 +1,13 @@
 {
   "name": "ctrl",
   "description": "Logical UI control abstraction around blaze",
-  "homepage": "",
+  "homepage": "https://github.com/philcockfield/meteor-control",
   "author": "Respondly (https://github.com/Respondly)",
   "version": "0.0.2",
-  "git": "",
+  "git": "https://github.com/philcockfield/meteor-control.git",
   "packages": {
     "sugar": {},
     "munit": {},
-    "util": {
-      "path": "../util"
-    }
+    "util": {}
   }
 }
-
-
